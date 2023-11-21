@@ -2,10 +2,10 @@ import 'package:ber/reusable_widgets_constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../config/SizeConfig.dart';
-import '../reusable_widgets_constants/reusable_constants.dart';
-import '../reusable_widgets_constants/rounded_button.dart';
+import '../../reusable_widgets_constants/reusable_constants.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+
+import '../../reusable_widgets_constants/rounded_button.dart';
 
 class UserLogin extends StatefulWidget {
   // const UserLogin({Key? key}) : super(key: key);
