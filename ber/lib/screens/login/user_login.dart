@@ -1,4 +1,5 @@
 import 'package:ber/reusable_widgets_constants/constants.dart';
+import 'package:ber/services/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -16,6 +17,7 @@ class UserLogin extends StatefulWidget {
 }
 
 class _UserLoginState extends State<UserLogin> {
+  LoginModel loginModel = LoginModel();
 
   var corporateId, userId, password;
 
@@ -33,6 +35,18 @@ class _UserLoginState extends State<UserLogin> {
     super.dispose();
   }
 
+
+  //---function to get Login Details, code starts
+  Future<void> getLoginDetailsOnPost() async{
+    var credential = {
+      "CorpID" : corporateId,
+      "UserName" : userId,
+      "Password" : password,
+    };
+    var loginDetails = await loginModel.getLoginDetailsOnPost(credential: credential);
+    print('responsaData-=>${loginDetails}');
+  }
+  //---function to get Login Details, code ends
 
   @override
   Widget build(BuildContext context) {
@@ -222,12 +236,13 @@ class _UserLoginState extends State<UserLogin> {
                                   height: 85,
                                   child: RoundedButton(colour: GlobalConstants.colorSubAppBar, title: 'Login', onPressed:() async {
                                     // EasyLoading.show(status: 'Loading...');
-                                    EasyLoading.show(status: 'Loading...');
+                                    // EasyLoading.show(status: 'Loading...');
                                     if (_controller_user_id.value.text.isNotEmpty &&
                                         _controller_pwd.value.text.isNotEmpty) {
-                                      // Login();
+                                      Login();
+                                      // getLoginDetailsOnPost();
                                     } else {
-                                      EasyLoading.dismiss();
+                                      // EasyLoading.dismiss();
                                       // _showMessageInScaffold('Field can\'t be left blank');
                                     }
                                   }
@@ -253,5 +268,9 @@ class _UserLoginState extends State<UserLogin> {
         ),
       ),
     );
+  }
+
+  void Login(){
+    getLoginDetailsOnPost();
   }
 }

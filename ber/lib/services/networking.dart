@@ -3,7 +3,7 @@ import 'dart:convert';
 
 // const baseURL = 'http://192.168.14.175:9007/api';
 // const baseURL = 'http://14.99.211.60:9007/api/v1';
-const baseURL = 'http://14.99.211.60:9012/Service.asmx/';
+const baseURL = 'http://14.99.211.60:9012/Service.asmx';
 // const baseURLV1 = 'http://14.99.211.60:9007/api/v1'; //---Arb Live IP
 const baseURLV1 = 'http://14.99.211.60:9030/0webapi/api/v1'; //---Aws(modeified 29th Oct) Live IP
 // const baseURLV1 = 'http://172.31.26.202:80/0webapi/api/v1'; //---Aws Live IP //--added aws Ip on 14th Oct 2022
@@ -33,9 +33,9 @@ class NetworkHelper {
 
 
   Future getDataOnPostMethod(var record) async {
-    http.Response response = await http.post(Uri.parse(url), headers: {"Content-Type": "application/json"},
-      body: jsonEncode(record),);
-    // print(response.body);
+    http.Response response = await http.post(Uri.parse(url), headers: {"Content-Type": "application/x-www-form-urlencoded"},
+      body: record,);
+    print(response.body);
 
     if (response.statusCode == 200) {
       String data = response.body;
@@ -47,7 +47,8 @@ class NetworkHelper {
       // var weatherDescription = jsonDecode(data)['weather'][0]['description'];
       var weatherDescription = decodedData['weather'][0]['description'];
 */
-      return jsonDecode(data);
+      // return jsonDecode(data);
+      return data;
     } else {
       print(response.statusCode);
     }
