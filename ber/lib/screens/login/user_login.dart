@@ -257,8 +257,7 @@ class _UserLoginState extends State<UserLogin> {
                                     // EasyLoading.show(status: 'Loading...');
                                     if (_controller_user_id.value.text.isNotEmpty &&
                                         _controller_pwd.value.text.isNotEmpty) {
-                                      Login();
-                                      // getLoginDetailsOnPost();
+                                      getLoginDetailsOnPost();
                                     } else {
                                       // EasyLoading.dismiss();
                                       // _showMessageInScaffold('Field can\'t be left blank');
@@ -288,7 +287,5 @@ class _UserLoginState extends State<UserLogin> {
     );
   }
 
-  void Login(){
-    getLoginDetailsOnPost();
-  }
+
 }
