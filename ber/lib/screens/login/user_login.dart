@@ -1,5 +1,6 @@
 import 'package:ber/reusable_widgets_constants/constants.dart';
 import 'package:ber/services/login.dart';
+import 'package:ber/services/xml_to_json_converter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -7,6 +8,8 @@ import '../../reusable_widgets_constants/reusable_constants.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import '../../reusable_widgets_constants/rounded_button.dart';
+import 'package:xml/xml.dart' as xml;
+import 'dart:convert';
 
 class UserLogin extends StatefulWidget {
   // const UserLogin({Key? key}) : super(key: key);
@@ -45,6 +48,21 @@ class _UserLoginState extends State<UserLogin> {
     };
     var loginDetails = await loginModel.getLoginDetailsOnPost(credential: credential);
     print('responsaData-=>${loginDetails}');
+
+    // Parse the XML string
+    var document = xml.XmlDocument.parse(loginDetails);
+
+    // Extract the JSON string from the XML
+    var jsonString = document.findAllElements('string').first.text;
+
+    // Parse the JSON string
+    var jsonData = jsonDecode(jsonString);
+
+    // Convert the JSON data back to a formatted JSON string
+    var formattedJsonString = JsonEncoder.withIndent('  ').convert(jsonData);
+
+    print("JsonData-=>$formattedJsonString");
+
   }
   //---function to get Login Details, code ends
 

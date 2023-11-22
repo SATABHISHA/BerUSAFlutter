@@ -2,13 +2,14 @@ import 'dart:convert';
 import 'dart:convert';
 import 'package:xml/xml.dart' as xml;
 
-class XmlToJson{
-  String xmlToJson(xml.XmlDocument document) {
+class XmlToJsonConversion{
+ static String xmlToJson(xml.XmlDocument document) {
     var buffer = StringBuffer();
-    var builder = json.JsonEncoder.withIndent('  ');
+    // var builder = json.JsonEncoder.withIndent('  ');
+    var builder = JsonEncoder.withIndent('  ');
 
     // Convert XML to Map
-    var map = _xmlToMap(document);
+    var map = xmlToMap(document);
 
     // Convert Map to JSON
     var jsonStr = builder.convert(map);
@@ -19,7 +20,7 @@ class XmlToJson{
     return buffer.toString();
   }
 
-  Map<String, dynamic> _xmlToMap(xml.XmlNode node) {
+  static Object xmlToMap(xml.XmlNode node) {
     if (node is xml.XmlElement) {
       var map = <String, dynamic>{};
       map['name'] = node.name.local;
@@ -35,7 +36,7 @@ class XmlToJson{
         // If the element has child elements, recursively convert them to a map
         map['children'] = <Map<String, dynamic>>[];
         for (var child in node.children) {
-          map['children'].add(_xmlToMap(child));
+          map['children'].add(xmlToMap(child));
         }
       }
 
