@@ -60,7 +60,6 @@ class CalendarHome extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           // title: Text('Calendar App'),
-
         ),
         body: Center(
           child: Column(
