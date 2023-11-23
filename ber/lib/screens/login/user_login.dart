@@ -1,4 +1,5 @@
 import 'package:ber/reusable_widgets_constants/constants.dart';
+import 'package:ber/screens/calendar/calendar_home.dart';
 import 'package:ber/services/login.dart';
 import 'package:ber/services/xml_to_json_converter.dart';
 import 'package:flutter/material.dart';
@@ -62,6 +63,13 @@ class _UserLoginState extends State<UserLogin> {
     var formattedJsonString = JsonEncoder.withIndent('  ').convert(jsonData);
 
     print("JsonData-=>$formattedJsonString");
+
+    final Map<String, dynamic> jsonResponse = json.decode(formattedJsonString.toString());
+    print('Message-=>${jsonResponse['Msg'].toString()}');
+
+    if(jsonResponse['Msg'].toString() == "Success"){
+      Navigator.pushNamed(context, CalendarHome.id);
+    }
 
   }
   //---function to get Login Details, code ends
