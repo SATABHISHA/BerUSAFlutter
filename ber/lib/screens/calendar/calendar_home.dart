@@ -102,7 +102,6 @@ class _CalendarHomeState extends State<CalendarHome> {
         String weekDateValue = weekDate['WeekDate'];
         List<dynamic> weekDays = weekDate['Day'];
         // String weekDays = weekDate['Day'];
-
         // DateTime date = DateTime.parse('$monthValue-$weekDays-2023');
         DateTime date = DateFormat("MM-dd-yyyy").parse('$monthValue-$weekDays-2023');
         print('Date-=>$date');
