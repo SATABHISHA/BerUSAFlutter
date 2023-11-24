@@ -55,6 +55,7 @@ dev_dependencies:
   http: ^1.1.0
   xml: ^6.4.2
   table_calendar: ^3.0.9
+  intl: ^0.18.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
