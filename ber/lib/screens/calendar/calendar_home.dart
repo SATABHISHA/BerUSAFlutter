@@ -213,7 +213,12 @@ class _CalendarHomeState extends State<CalendarHome> {
 
                     // return Positioned(child: _buildEventsMarker(events));
                     var color;
-                    final EventColor = weekDaysList.contains(date) == true ? Colors.orange : Colors.transparent;
+                    final EventColor = weekDaysList.contains(date.toString()) == true ? Colors.orange : Colors.transparent;
+                    if(weekDaysList.contains(date.toString()) == true){
+                      color = Colors.orange;
+                    }else{
+                      color = Colors.transparent;
+                    }
                     /*if(weekDaysList.contains(date)){
                       color = Colors.orange;
                       print("Eureka");
@@ -221,7 +226,7 @@ class _CalendarHomeState extends State<CalendarHome> {
                       color = Colors.greenAccent;
                       print("Failed Calendar");
                     }*/
-                    for(var weekdays in weekDaysList){
+                    /*for(var weekdays in weekDaysList){
                       if(weekdays == date.toString()){
                         color = Colors.orange;
                         print("Eureka");
@@ -232,7 +237,7 @@ class _CalendarHomeState extends State<CalendarHome> {
                         print("Failed Calendar");
                         print('Testfailed-=>$weekdays and original date: $date' );
                       }
-                    }
+                    }*/
                     return
                       Container(
                       /*width: 5,
