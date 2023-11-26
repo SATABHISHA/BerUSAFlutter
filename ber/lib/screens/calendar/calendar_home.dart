@@ -60,12 +60,16 @@ class CalendarHome extends StatefulWidget {
 class _CalendarHomeState extends State<CalendarHome> {
   CalendarModel calendarModel = CalendarModel();
   Map<DateTime, List<dynamic>> events = {};
+  List<dynamic> weekDaysList = [];
   // List<dynamic> eventsDay = [];
   // CalendarController _calendarController;
 
 
   Future<void> fetchData() async {
 
+    if(weekDaysList.isEmpty){
+      weekDaysList.clear();
+    }
     var data = {
       "CorpID" : 'hit',
       "UserID" : '7',
@@ -92,19 +96,34 @@ class _CalendarHomeState extends State<CalendarHome> {
     // print('Message-=>${jsonResponse['Msg'].toString()}');
     //---code taken from ChatGpt, code starts
     List<dynamic> months = jsonMap['Months'];
-
+    weekDaysList.add('2023-10-24 00:00:00.000Z');
     // Populate events map
     for (var month in months) {
       String monthValue = month['Month'];
       List<dynamic> weekDates = month['WeekDates'];
 
+
       for (var weekDate in weekDates) {
         String weekDateValue = weekDate['WeekDate'];
-        List<dynamic> weekDays = weekDate['Day'];
+        // List<dynamic> weekDays = weekDate['Day'];
+        setState(() {
+          // Convert the original date string to DateTime
+          // DateTime dateTime = DateTime.parse(weekDate['WeekDate']);
+
+          DateTime date = DateFormat("dd-MM-yyyy").parse(weekDate['WeekDate']);
+          // Format the DateTime as a string in the desired format
+          // String formattedDate = date.toUtc().toIso8601String();
+          // String formattedDate = DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(date.toUtc());
+          String formattedDate = DateFormat('yyyy-MM-dd').format(date.toUtc());
+          // weekDaysList.add(weekDate['WeekDate']);
+          weekDaysList.add(formattedDate+' 00:00:00.000Z');
+        });
+
+        // weekDaysList = weekDate['WeekDate'];
         // String weekDays = weekDate['Day'];
         // DateTime date = DateTime.parse('$monthValue-$weekDays-2023');
-        DateTime date = DateFormat("MM-dd-yyyy").parse('$monthValue-$weekDays-2023');
-        print('Date-=>$date');
+        // DateTime date = DateFormat("MM-dd-yyyy").parse('$monthValue-$weekDays-2023');
+        // print('Date-=>$date');
         // events[date] = ['Yellow']; // Add yellow color to events
         /*for (var day in weekDays) {
           DateTime date = DateTime.parse('$monthValue-$day-2023');
@@ -113,6 +132,7 @@ class _CalendarHomeState extends State<CalendarHome> {
         }*/
 
       }
+      print('WeekdaysPrevTest-=>$weekDaysList');
     }
     //---code taken from ChatGpt, code ends
   }
@@ -132,7 +152,7 @@ class _CalendarHomeState extends State<CalendarHome> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        return false;
+        return true;
       },
       child: Scaffold(
         appBar: AppBar(
@@ -161,26 +181,74 @@ class _CalendarHomeState extends State<CalendarHome> {
             },
 
 
-                selectedDayPredicate: (day) {
+                /*selectedDayPredicate: (day) {
                   // events['date'] ?? [];
-                  print("test-=>${day.weekday}");
+                  print("test-=>${day}");
+
+                  *//*setState(() {
+
+                  });*//*
+                  print('weekdays test-=>$weekDaysList');
+                 *//* for(var weekdays in weekDaysList){
+                    print('weekdays test-=>$weekdays');
+                  }*//*
                   if(day.weekday == DateTime.sunday) {
                     return true;
                   }else{
                     return false;
                   }
-                },
+                },*/
 
             // Add events to the calendar
             // eventLoader: (day) => events,
                 eventLoader: (day) {
-                  return events['date'] ?? [];
+                  print("eventLoader-=> ${weekDaysList}");
+                  // return events['date'] ?? [];
+                  return weekDaysList;
                 },
                 calendarBuilders: CalendarBuilders(
                   markerBuilder: (context, date, events) {
+                    print("test calendarBuildr-=>$date");
                     // Customize markers on each date if needed
 
-                    return Positioned(child: _buildEventsMarker(events));
+                    // return Positioned(child: _buildEventsMarker(events));
+                    var color;
+                    final EventColor = weekDaysList.contains(date) == true ? Colors.orange : Colors.transparent;
+                    /*if(weekDaysList.contains(date)){
+                      color = Colors.orange;
+                      print("Eureka");
+                    }else{
+                      color = Colors.greenAccent;
+                      print("Failed Calendar");
+                    }*/
+                    for(var weekdays in weekDaysList){
+                      if(weekdays == date.toString()){
+                        color = Colors.orange;
+                        print("Eureka");
+                        print('TestSuccess-=>$weekdays');
+                        // break;
+                      }else{
+                        color = Colors.greenAccent;
+                        print("Failed Calendar");
+                        print('Testfailed-=>$weekdays and original date: $date' );
+                      }
+                    }
+                    return
+                      Container(
+                      /*width: 5,
+                      height: 5,*/
+                        margin: const EdgeInsets.all(4.0),
+                        alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: color,
+                      ),
+
+                        child: Text(
+                          '${date.day}',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                    );
                   },
                 ),
 
