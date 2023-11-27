@@ -208,7 +208,16 @@ class _CalendarHomeState extends State<CalendarHome> {
               // calendarData.fetchData(start, end);
               // calendarData.fetchData();
               // print('Selected date: $date');
-              // print('Events: $events');
+              print('Selected Day test: $selectedDay');
+
+              //---code added on 27-Nov-2023, starts
+              String formattedDateString = convertDateString(selectedDay.toString());
+              if(weekDaysJsonList.any((weekDate) => weekDate["WeekDate"] == formattedDateString) == true){
+                // List<Map<String, dynamic>> filteredList = weekDaysJsonList.any((weekDate) => (weekDate["WeekDate"]) == formattedDateString).toList();
+                var filteredData = weekDaysJsonList.where((weekDate) => (weekDate["WeekDate"]) == formattedDateString);
+                print('testDaySelection-=>$filteredData');
+              }
+              //---code added on 27-Nov-2023, ends
             },
 
 
