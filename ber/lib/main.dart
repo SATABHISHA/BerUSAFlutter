@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         routes: {
           UserLogin.id : (context) => UserLogin(),
           CalendarHome.id : (context) => CalendarHome(),
-          CalendarDaySelection.id : (context) => CalendarDaySelection();
+          CalendarDaySelection.id : (context) => CalendarDaySelection()
         },
       ),
     );
