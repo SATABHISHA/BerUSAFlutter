@@ -61,6 +61,7 @@ class _CalendarHomeState extends State<CalendarHome> {
   CalendarModel calendarModel = CalendarModel();
   Map<DateTime, List<dynamic>> events = {};
   List<dynamic> weekDaysList = [];
+  List<Map<String, dynamic>> weekDaysJsonList = []; //---added on 27th Nov 2023
   // List<dynamic> eventsDay = [];
   // CalendarController _calendarController;
 
@@ -69,6 +70,9 @@ class _CalendarHomeState extends State<CalendarHome> {
 
     if(weekDaysList.isEmpty){
       weekDaysList.clear();
+    }
+    if(weekDaysJsonList.isNotEmpty){
+      weekDaysJsonList.clear();
     }
     var data = {
       "CorpID" : 'hit',
@@ -96,7 +100,7 @@ class _CalendarHomeState extends State<CalendarHome> {
     // print('Message-=>${jsonResponse['Msg'].toString()}');
     //---code taken from ChatGpt, code starts
     List<dynamic> months = jsonMap['Months'];
-    weekDaysList.add('2023-10-24 00:00:00.000Z');
+    // weekDaysList.add('2023-10-24 00:00:00.000Z');
     // Populate events map
     for (var month in months) {
       String monthValue = month['Month'];
@@ -117,6 +121,20 @@ class _CalendarHomeState extends State<CalendarHome> {
           String formattedDate = DateFormat('yyyy-MM-dd').format(date.toUtc());
           // weekDaysList.add(weekDate['WeekDate']);
           weekDaysList.add(formattedDate+' 00:00:00.000Z');
+
+          //---added on 27th Nov, 2023, code starts
+          for (var weekDate in weekDates) {
+            Map<String, dynamic> combinedJsonWeekDayItems = {
+              "Day": weekDate["Day"],
+              "WeekDate": weekDate["WeekDate"],
+              "StartDate": weekDate["StartDate"],
+              "EndDate": weekDate["EndDate"],
+              "BERStatus": weekDate["BERStatus"]
+            };
+            weekDaysJsonList.add(combinedJsonWeekDayItems);
+          }
+          //---added on 27th Nov, 2023, code ends
+
         });
 
         // weekDaysList = weekDate['WeekDate'];
@@ -138,6 +156,19 @@ class _CalendarHomeState extends State<CalendarHome> {
   }
 
 
+  //---added on 27th Nov 2023, code starts
+  String convertDateString(String inputDateString) {
+    // Parse the input date string
+    DateTime dateTime = DateTime.parse(inputDateString);
+
+    // Format the date as "MM-dd-yyyy"
+    String formattedDateString = "${dateTime.month.toString().padLeft(2, '0')}-"
+        "${dateTime.day.toString().padLeft(2, '0')}-"
+        "${dateTime.year.toString()}";
+
+    return formattedDateString;
+  }
+  //---added on 27th Nov 2023, code ends
 
   @override
   void initState(){
@@ -210,15 +241,38 @@ class _CalendarHomeState extends State<CalendarHome> {
                   markerBuilder: (context, date, events) {
                     print("test calendarBuildr-=>$date");
                     // Customize markers on each date if needed
+                    var color, textColor;
+                    String formattedDateString = convertDateString(date.toString());
 
-                    // return Positioned(child: _buildEventsMarker(events));
-                    var color;
-                    final EventColor = weekDaysList.contains(date.toString()) == true ? Colors.orange : Colors.transparent;
-                    if(weekDaysList.contains(date.toString()) == true){
+                    print('test dates-=>$formattedDateString');
+
+                    //---added on 27th Nov 2023, code starts
+
+                    if(weekDaysJsonList.any((weekDate) => weekDate["WeekDate"] == formattedDateString) == true){
                       color = Colors.orange;
+                      textColor = Colors.white;
+
+                      print('Success Eureka');
+                    }else{
+                      print('Failed-=>$formattedDateString');
+                      color = Colors.transparent;
+                      textColor = Colors.black54;
+                    }
+
+
+
+
+                    //---added on 27th Nov 2023, code ends
+                    // return Positioned(child: _buildEventsMarker(events));
+
+                    final EventColor = weekDaysList.contains(date.toString()) == true ? Colors.orange : Colors.transparent;
+                    /*if(weekDaysList.contains(date.toString()) == true){
+                      color = Colors.orange;
+                      textColor = Colors.white;
                     }else{
                       color = Colors.transparent;
-                    }
+                      textColor = Colors.black54;
+                    }*/ //---commented on 27th Nov 2023
                     /*if(weekDaysList.contains(date)){
                       color = Colors.orange;
                       print("Eureka");
@@ -251,7 +305,7 @@ class _CalendarHomeState extends State<CalendarHome> {
 
                         child: Text(
                           '${date.day}',
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: textColor),
                         ),
                     );
                   },
