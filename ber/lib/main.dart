@@ -1,3 +1,4 @@
+import 'package:ber/screens/calendar/calendar_day_selection.dart';
 import 'package:ber/screens/calendar/calendar_home.dart';
 import 'package:ber/screens/login/user_login.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,8 @@ class MyApp extends StatelessWidget {
         initialRoute: UserLogin.id,
         routes: {
           UserLogin.id : (context) => UserLogin(),
-          CalendarHome.id : (context) => CalendarHome()
+          CalendarHome.id : (context) => CalendarHome(),
+          CalendarDaySelection.id : (context) => CalendarDaySelection();
         },
       ),
     );
