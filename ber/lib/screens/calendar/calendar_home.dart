@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:ber/screens/calendar/calendar_day_selection.dart';
 import 'package:ber/services/calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -216,6 +217,7 @@ class _CalendarHomeState extends State<CalendarHome> {
                 // List<Map<String, dynamic>> filteredList = weekDaysJsonList.any((weekDate) => (weekDate["WeekDate"]) == formattedDateString).toList();
                 var filteredData = weekDaysJsonList.where((weekDate) => (weekDate["WeekDate"]) == formattedDateString);
                 print('testDaySelection-=>$filteredData');
+                Navigator.pushNamed(context, CalendarDaySelection.id);
               }
               //---code added on 27-Nov-2023, ends
             },
