@@ -53,6 +53,7 @@ class CalendarDataProvider with ChangeNotifier {
 class CalendarHome extends StatefulWidget {
   // const CalendarHome({Key? key}) : super(key: key);
   static String id = 'CalendarHome';
+  static Map<String, dynamic> calendar_home_day_selection_list = {};
 
   @override
   State<CalendarHome> createState() => _CalendarHomeState();
@@ -215,8 +216,11 @@ class _CalendarHomeState extends State<CalendarHome> {
               String formattedDateString = convertDateString(selectedDay.toString());
               if(weekDaysJsonList.any((weekDate) => weekDate["WeekDate"] == formattedDateString) == true){
                 // List<Map<String, dynamic>> filteredList = weekDaysJsonList.any((weekDate) => (weekDate["WeekDate"]) == formattedDateString).toList();
-                var filteredData = weekDaysJsonList.where((weekDate) => (weekDate["WeekDate"]) == formattedDateString);
-                print('testDaySelection-=>$filteredData');
+                List<Map<String, dynamic>> filteredData = weekDaysJsonList.where((weekDate) => (weekDate["WeekDate"]) == formattedDateString).toList();
+
+                CalendarHome.calendar_home_day_selection_list = (filteredData.isNotEmpty? filteredData[0]: null)!;
+                // print('testDaySelection-=>$filteredData');
+                print('testDaySelection-=>${CalendarHome.calendar_home_day_selection_list}');
                 Navigator.pushNamed(context, CalendarDaySelection.id);
               }
               //---code added on 27-Nov-2023, ends

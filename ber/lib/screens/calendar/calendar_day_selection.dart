@@ -1,4 +1,6 @@
+import 'package:ber/screens/calendar/calendar_home.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class CalendarDaySelection extends StatefulWidget {
   // const CalendarDaySelection({Key? key}) : super(key: key);
@@ -9,6 +11,44 @@ class CalendarDaySelection extends StatefulWidget {
 }
 
 class _CalendarDaySelectionState extends State<CalendarDaySelection> {
+
+  List<String> getDateRangeWithWeekdays(String startDateString, String endDateString) {
+    DateTime startDate = DateFormat('MM-dd-yyyy').parse(startDateString);
+    DateTime endDate = DateFormat('MM-dd-yyyy').parse(endDateString);
+
+    List<String> dateRangeWithWeekdays = [];
+
+    while (startDate.isBefore(endDate) || startDate.isAtSameMomentAs(endDate)) {
+      String formattedDate = DateFormat('MM-dd-yyyy EEEE').format(startDate);
+      dateRangeWithWeekdays.add(formattedDate);
+      startDate = startDate.add(Duration(days: 1));
+    }
+
+    return dateRangeWithWeekdays;
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print('StartDateTest-=>${CalendarHome.calendar_home_day_selection_list['StartDate']}');
+    // List<String> dateRange = getDateRange(CalendarHome.calendar_home_day_selection_list['StartDate'].toString(), CalendarHome.calendar_home_day_selection_list['EndDate'].toString());
+    // List<DateTime> dateRange = getDateRange('11-26-2023', '11-30-2023');
+    List<String> dateRangeWithWeekdays = getDateRangeWithWeekdays(CalendarHome.calendar_home_day_selection_list['StartDate'], CalendarHome.calendar_home_day_selection_list['EndDate']);
+    // List<String> dateRangeWithWeekdays = getDateRangeWithWeekdays('2023-11-26', '2023-11-30');
+
+
+        setState(() {
+
+          for (String formattedDate in dateRangeWithWeekdays) {
+            print(formattedDate); // Print each date with weekday name in the range
+          }
+
+          /*for (DateTime formattedDate in dateRange) {
+            print(formattedDate); // Print each date with weekday name in the range
+          }*/
+        });
+  }
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -85,8 +125,25 @@ class _CalendarDaySelectionState extends State<CalendarDaySelection> {
                         ),
                       ),
                       SizedBox(height: 20,),
-                      Text('Week Date: 01/20/2023', style: TextStyle(fontSize: 20, color: Color.fromRGBO(17, 17, 17, 1.0), fontWeight: FontWeight.w600),),
-                      Text('(01/14/2023 - 01/20/2023)', style: TextStyle(fontSize: 16, color: Color.fromRGBO(17, 17, 17, 1.0), fontWeight: FontWeight.normal),),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                        child: Align(alignment: Alignment.centerLeft,child: Text('Week Date: 01/20/2023', style: TextStyle(fontSize: 20, color: Color.fromRGBO(17, 17, 17, 1.0), fontWeight: FontWeight.w600),)),
+                      ),
+                      // Text('(01/14/2023 - 01/20/2023)', style: TextStyle(fontSize: 16, color: Color.fromRGBO(17, 17, 17, 1.0), fontWeight: FontWeight.normal),),
+                      SizedBox(height: 20,),
+                      Container(
+                        width: double.infinity,
+                        // height: 60,
+                        decoration: BoxDecoration(color: Colors.lightGreenAccent),
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(8, 8, 8, 8),
+                          child: Column(
+                            children: [
+                              Text('${CalendarHome.calendar_home_day_selection_list['StartDate']} - ${CalendarHome.calendar_home_day_selection_list['EndDate']}', style: TextStyle(fontSize: 16, color: Color.fromRGBO(17, 17, 17, 1.0), fontWeight: FontWeight.normal)),
+                            ],
+                          ),
+                        ),
+                      )
 
 
 
