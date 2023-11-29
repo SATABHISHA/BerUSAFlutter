@@ -1,3 +1,4 @@
+import 'package:ber/screens/calendar/calendar_day_selection_list_tile.dart';
 import 'package:ber/screens/calendar/calendar_home.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -87,6 +88,8 @@ class _CalendarDaySelectionState extends State<CalendarDaySelection> {
 
         ),*/
         body: Container(
+          width: MediaQuery.of(context).size.width,
+          // height: MediaQuery.of(context).size.height,
           // color: Colors.lightGreenAccent,
           decoration: BoxDecoration(
             /*gradient: LinearGradient(
@@ -133,13 +136,22 @@ class _CalendarDaySelectionState extends State<CalendarDaySelection> {
                       SizedBox(height: 20,),
                       Container(
                         width: double.infinity,
-                        // height: 60,
+                        // height: MediaQuery.of(context).size.height,
+                        // height: 200,
                         decoration: BoxDecoration(color: Colors.lightGreenAccent),
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(8, 8, 8, 8),
                           child: Column(
                             children: [
                               Text('${CalendarHome.calendar_home_day_selection_list['StartDate']} - ${CalendarHome.calendar_home_day_selection_list['EndDate']}', style: TextStyle(fontSize: 16, color: Color.fromRGBO(17, 17, 17, 1.0), fontWeight: FontWeight.normal)),
+                              SizedBox(height: 20,),
+                              ListView(
+                                scrollDirection: Axis.vertical,
+                                shrinkWrap: true,
+                                children: [
+                                  new CalendarDaySelectionListTile(weekDay: '11-26-2023', weekDayName: 'Monday', onPressedEditBtn: () {}),
+                                ],
+                              )
                             ],
                           ),
                         ),
