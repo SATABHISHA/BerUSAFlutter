@@ -13,21 +13,35 @@ class CalendarDaySelectionListTile extends StatelessWidget {
     return Container(
       width: MediaQuery.sizeOf(context).width,
       // height: 60,
-      color: Color.fromRGBO(210, 208, 208, 1.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            // mainAxisSize: MainAxisSize.max,
-            children: [
-              Text('$weekDay', style: TextStyle(fontSize: 14,color: Color.fromRGBO(120, 120, 120, 1.0)),),
-              SizedBox(width: 20,),
-              Text('$weekDayName', style: TextStyle(fontSize: 14,color: Color.fromRGBO(120, 120, 120, 1.0)),),
-              Expanded(child: Align(alignment: Alignment.centerRight,child: MaterialButton(onPressed: onPressedEditBtn, child: Text('Edit'))))
-            ],
-          )
-        ],
+      color: Color.fromRGBO(253, 253, 253, 1.0),
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(8, 5, 8, 0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              // mainAxisSize: MainAxisSize.max,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('$weekDayName', style: TextStyle(fontSize: 17,color: Color.fromRGBO(
+                        19, 19, 19, 1.0)),),
+                    Text('$weekDay', style: TextStyle(fontSize: 15,color: Color.fromRGBO(120, 120, 120, 1.0)),),
+                  ],
+
+                ),
+                SizedBox(width: 20,),
+
+                Expanded(child: Align(alignment: Alignment.centerRight,child: MaterialButton(onPressed: onPressedEditBtn, child: Text('Edit'))))
+              ],
+            ),
+            SizedBox(height: 5,),
+            Container(width: MediaQuery.of(context).size.width, height: 0.5, color: Color.fromRGBO(
+                134, 134, 134, 1.0),)
+          ],
+        ),
       ),
     );
   }

@@ -12,8 +12,15 @@ class CalendarDaySelection extends StatefulWidget {
 }
 
 class _CalendarDaySelectionState extends State<CalendarDaySelection> {
+  List<Map<String, dynamic>> weekDaysJsonList = [];
 
-  List<String> getDateRangeWithWeekdays(String startDateString, String endDateString) {
+  List<Map<String, dynamic>> getDateRangeWithWeekdays(String startDateString, String endDateString)
+  {
+
+    if(weekDaysJsonList.isNotEmpty){
+      weekDaysJsonList.clear();
+    }
+
     DateTime startDate = DateFormat('MM-dd-yyyy').parse(startDateString);
     DateTime endDate = DateFormat('MM-dd-yyyy').parse(endDateString);
 
@@ -21,11 +28,18 @@ class _CalendarDaySelectionState extends State<CalendarDaySelection> {
 
     while (startDate.isBefore(endDate) || startDate.isAtSameMomentAs(endDate)) {
       String formattedDate = DateFormat('MM-dd-yyyy EEEE').format(startDate);
+      String formattedWeekDate = DateFormat('MM-dd-yyyy').format(startDate);
+      String formattedWeekDayName = DateFormat('EEEE').format(startDate);
+      Map<String, dynamic> combinedWeekDaysList = {
+        "weekDayDate" : formattedWeekDate,
+        "weekDayName" : formattedWeekDayName
+      };
+      weekDaysJsonList.add(combinedWeekDaysList);
       dateRangeWithWeekdays.add(formattedDate);
       startDate = startDate.add(Duration(days: 1));
     }
 
-    return dateRangeWithWeekdays;
+    return weekDaysJsonList;
   }
 
   @override
@@ -35,13 +49,13 @@ class _CalendarDaySelectionState extends State<CalendarDaySelection> {
     print('StartDateTest-=>${CalendarHome.calendar_home_day_selection_list['StartDate']}');
     // List<String> dateRange = getDateRange(CalendarHome.calendar_home_day_selection_list['StartDate'].toString(), CalendarHome.calendar_home_day_selection_list['EndDate'].toString());
     // List<DateTime> dateRange = getDateRange('11-26-2023', '11-30-2023');
-    List<String> dateRangeWithWeekdays = getDateRangeWithWeekdays(CalendarHome.calendar_home_day_selection_list['StartDate'], CalendarHome.calendar_home_day_selection_list['EndDate']);
+    List<Map<String, dynamic>> dateRangeWithWeekdays = getDateRangeWithWeekdays(CalendarHome.calendar_home_day_selection_list['StartDate'], CalendarHome.calendar_home_day_selection_list['EndDate']);
     // List<String> dateRangeWithWeekdays = getDateRangeWithWeekdays('2023-11-26', '2023-11-30');
 
 
         setState(() {
 
-          for (String formattedDate in dateRangeWithWeekdays) {
+          for (var formattedDate in dateRangeWithWeekdays) {
             print(formattedDate); // Print each date with weekday name in the range
           }
 
@@ -52,6 +66,15 @@ class _CalendarDaySelectionState extends State<CalendarDaySelection> {
   }
   @override
   Widget build(BuildContext context) {
+    List<Widget> customWeekDayList = [];
+    for(var weekdaysJsonList in weekDaysJsonList){
+      try{
+        customWeekDayList.add(new CalendarDaySelectionListTile(weekDay: weekdaysJsonList['weekDayDate'], weekDayName: weekdaysJsonList['weekDayName'], onPressedEditBtn: (){}));
+      }catch(e){
+
+      }
+    }
+
     return WillPopScope(
       onWillPop: () async {
         return false;
@@ -130,7 +153,7 @@ class _CalendarDaySelectionState extends State<CalendarDaySelection> {
                       SizedBox(height: 20,),
                       Padding(
                         padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                        child: Align(alignment: Alignment.centerLeft,child: Text('Week Date: 01/20/2023', style: TextStyle(fontSize: 20, color: Color.fromRGBO(17, 17, 17, 1.0), fontWeight: FontWeight.w600),)),
+                        child: Align(alignment: Alignment.centerLeft,child: Text('Week Date: ${CalendarHome.calendar_home_day_selection_list['WeekDate']}', style: TextStyle(fontSize: 20, color: Color.fromRGBO(17, 17, 17, 1.0), fontWeight: FontWeight.w600),)),
                       ),
                       // Text('(01/14/2023 - 01/20/2023)', style: TextStyle(fontSize: 16, color: Color.fromRGBO(17, 17, 17, 1.0), fontWeight: FontWeight.normal),),
                       SizedBox(height: 20,),
@@ -138,19 +161,35 @@ class _CalendarDaySelectionState extends State<CalendarDaySelection> {
                         width: double.infinity,
                         // height: MediaQuery.of(context).size.height,
                         // height: 200,
-                        decoration: BoxDecoration(color: Colors.lightGreenAccent),
+                        decoration: BoxDecoration(color: Color.fromRGBO(
+                            215, 215, 215, 1.0)),
                         child: Padding(
-                          padding: EdgeInsets.fromLTRB(8, 8, 8, 8),
+                          padding: EdgeInsets.fromLTRB(15, 8, 15, 20),
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text('${CalendarHome.calendar_home_day_selection_list['StartDate']} - ${CalendarHome.calendar_home_day_selection_list['EndDate']}', style: TextStyle(fontSize: 16, color: Color.fromRGBO(17, 17, 17, 1.0), fontWeight: FontWeight.normal)),
                               SizedBox(height: 20,),
+                              Container(
+                                color: Color.fromRGBO(117, 185, 223, 1.0),
+                                child: Padding(
+                                  padding: EdgeInsets.fromLTRB(8, 10, 5, 10),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                                    children: [
+                                      Text('Week Date', style: TextStyle(fontSize: 15, color: Colors.white),),
+                                      Text('${CalendarHome.calendar_home_day_selection_list['WeekDate']}', style: TextStyle(fontSize: 18, color: Colors.white),)
+                                    ],
+                                  ),
+                                ),
+                              ),
                               ListView(
                                 scrollDirection: Axis.vertical,
                                 shrinkWrap: true,
-                                children: [
+                               /* children: [
                                   new CalendarDaySelectionListTile(weekDay: '11-26-2023', weekDayName: 'Monday', onPressedEditBtn: () {}),
-                                ],
+                                ],*/
+                                children: customWeekDayList,
                               )
                             ],
                           ),
