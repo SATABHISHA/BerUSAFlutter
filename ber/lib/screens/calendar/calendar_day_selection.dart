@@ -131,135 +131,172 @@ class _CalendarDaySelectionState extends State<CalendarDaySelection> {
           child: SafeArea(
             child: Stack(
                 children: [
-                  Column(
-                    children: [
-                      Container(
-                        width: double.infinity,
-                        // height: 60,
-                        color: Color.fromRGBO(117, 185, 223, 1.0),
-                        child: Padding(
-                          padding: EdgeInsets.fromLTRB(0, 8, 0, 8),
-                          child: Column(
-                            children: [
-                              Center(
-                                child: Text('Select Day', style: TextStyle(color: Color.fromRGBO(
-                                    255, 255, 255, 1.0), fontSize: 18),),
-                              ),
 
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(0, 0, 0, 40),
+                    child: Column(
+                      children: [
+                        Container(
+                          width: double.infinity,
+                          // height: 60,
+                          color: Color.fromRGBO(117, 185, 223, 1.0),
+                          child: Padding(
+                            padding: EdgeInsets.fromLTRB(0, 8, 0, 8),
+                            child: Column(
+                              children: [
+                                Center(
+                                  child: Text('Select Day', style: TextStyle(color: Color.fromRGBO(
+                                      255, 255, 255, 1.0), fontSize: 18),),
+                                ),
+
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 20,),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                          child: Align(alignment: Alignment.centerLeft,child: Text('Week Date: ${CalendarHome.calendar_home_day_selection_list['WeekDate']}', style: TextStyle(fontSize: 20, color: Color.fromRGBO(17, 17, 17, 1.0), fontWeight: FontWeight.w600),)),
+                        ),
+                        // Text('(01/14/2023 - 01/20/2023)', style: TextStyle(fontSize: 16, color: Color.fromRGBO(17, 17, 17, 1.0), fontWeight: FontWeight.normal),),
+                        SizedBox(height: 20,),
+                        Expanded(
+                          child: Container(
+                            width: double.infinity,
+                            // height: MediaQuery.of(context).size.height,
+                            // height: 200,
+                            decoration: BoxDecoration(color: Color.fromRGBO(
+                                215, 215, 215, 1.0)),
+                            child: Padding(
+                              padding: EdgeInsets.fromLTRB(15, 8, 15, 20),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('${CalendarHome.calendar_home_day_selection_list['StartDate']} - ${CalendarHome.calendar_home_day_selection_list['EndDate']}', style: TextStyle(fontSize: 16, color: Color.fromRGBO(17, 17, 17, 1.0), fontWeight: FontWeight.normal)),
+                                  SizedBox(height: 20,),
+                                  Container(
+                                    color: Color.fromRGBO(117, 185, 223, 1.0),
+                                    child: Padding(
+                                      padding: EdgeInsets.fromLTRB(8, 10, 5, 10),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                                        children: [
+                                          Text('Week Date', style: TextStyle(fontSize: 15, color: Colors.white),),
+                                          Text('${CalendarHome.calendar_home_day_selection_list['WeekDate']}', style: TextStyle(fontSize: 18, color: Colors.white),)
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: ListView(
+                                      scrollDirection: Axis.vertical,
+                                      shrinkWrap: true,
+                                     /* children: [
+                                        new CalendarDaySelectionListTile(weekDay: '11-26-2023', weekDayName: 'Monday', onPressedEditBtn: () {}),
+                                      ],*/
+                                      children: customWeekDayList,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        //---saved/approved/submitted/return indicators, code starts
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                          child: Row(
+                            // crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Column(
+                                // mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(width: 10, height: 10, color: Color.fromRGBO(246, 236, 193, 1.0),),
+                                      SizedBox(width: 5,),
+                                      Text('Saved', style: TextStyle(fontSize: 13),),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Container(width: 10, height: 10, color: Color.fromRGBO(
+                                          194, 218, 231, 1.0),),
+                                      SizedBox(width: 5,),
+                                      Text('Approved', style: TextStyle(fontSize: 13),),
+                                    ],
+                                  ),
+
+                                ],
+                              ),
+                              SizedBox(width: 45,),
+                              Column(
+                                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Container(width: 10, height: 10, color: Color.fromRGBO(
+                                          242, 210, 255, 1.0),),
+                                      SizedBox(width: 5,),
+                                      Text('Submitted', style: TextStyle(fontSize: 13),),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Container(width: 10, height: 10, color: Color.fromRGBO(
+                                          220, 173, 131, 1.0),),
+                                      SizedBox(width: 5,),
+                                      Text('Returned', style: TextStyle(fontSize: 13),),
+                                    ],
+                                  ),
+                                ],
+                              )
                             ],
                           ),
                         ),
-                      ),
-                      SizedBox(height: 20,),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                        child: Align(alignment: Alignment.centerLeft,child: Text('Week Date: ${CalendarHome.calendar_home_day_selection_list['WeekDate']}', style: TextStyle(fontSize: 20, color: Color.fromRGBO(17, 17, 17, 1.0), fontWeight: FontWeight.w600),)),
-                      ),
-                      // Text('(01/14/2023 - 01/20/2023)', style: TextStyle(fontSize: 16, color: Color.fromRGBO(17, 17, 17, 1.0), fontWeight: FontWeight.normal),),
-                      SizedBox(height: 20,),
-                      Expanded(
-                        child: Container(
-                          width: double.infinity,
-                          // height: MediaQuery.of(context).size.height,
-                          // height: 200,
-                          decoration: BoxDecoration(color: Color.fromRGBO(
-                              215, 215, 215, 1.0)),
-                          child: Padding(
-                            padding: EdgeInsets.fromLTRB(15, 8, 15, 20),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('${CalendarHome.calendar_home_day_selection_list['StartDate']} - ${CalendarHome.calendar_home_day_selection_list['EndDate']}', style: TextStyle(fontSize: 16, color: Color.fromRGBO(17, 17, 17, 1.0), fontWeight: FontWeight.normal)),
-                                SizedBox(height: 20,),
-                                Container(
-                                  color: Color.fromRGBO(117, 185, 223, 1.0),
-                                  child: Padding(
-                                    padding: EdgeInsets.fromLTRB(8, 10, 5, 10),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                                      children: [
-                                        Text('Week Date', style: TextStyle(fontSize: 15, color: Colors.white),),
-                                        Text('${CalendarHome.calendar_home_day_selection_list['WeekDate']}', style: TextStyle(fontSize: 18, color: Colors.white),)
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: ListView(
-                                    scrollDirection: Axis.vertical,
-                                    shrinkWrap: true,
-                                   /* children: [
-                                      new CalendarDaySelectionListTile(weekDay: '11-26-2023', weekDayName: 'Monday', onPressedEditBtn: () {}),
-                                    ],*/
-                                    children: customWeekDayList,
-                                  ),
-                                )
-                              ],
+                        //---saved/approved/submitted/return indicators, code ends
+
+                      ],
+                    ),
+                  ),
+
+
+                  //---submit/approve/return btn, code starts
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Expanded(
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              height: 50,
+                              decoration: BoxDecoration(border: Border(top: BorderSide(width: 1, color: Colors.black54), right: BorderSide(width: 1, color: Colors.black54))),
+                              child: MaterialButton( onPressed: (){},child: Text('Submit', style: TextStyle(fontSize: 15, color: Colors.black54),)),
                             ),
                           ),
-                        ),
-                      ),
-
-                      //---saved/approved/submitted/return indicators, code starts
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
-                        child: Row(
-                          // crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Column(
-                              // mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Container(width: 10, height: 10, color: Color.fromRGBO(246, 236, 193, 1.0),),
-                                    SizedBox(width: 5,),
-                                    Text('Saved', style: TextStyle(fontSize: 13),),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Container(width: 10, height: 10, color: Color.fromRGBO(
-                                        194, 218, 231, 1.0),),
-                                    SizedBox(width: 5,),
-                                    Text('Approved', style: TextStyle(fontSize: 13),),
-                                  ],
-                                ),
-
-                              ],
+                          Expanded(
+                            child: Container(
+                              height: 50,
+                              decoration: BoxDecoration(border: Border(top: BorderSide(width: 1, color: Colors.black54), right: BorderSide(width: 1, color: Colors.black54))),
+                              child: MaterialButton( onPressed: (){},child: Text('Approve', style: TextStyle(fontSize: 15, color: Colors.black54),)),
                             ),
-                            SizedBox(width: 45,),
-                            Column(
-                              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Container(width: 10, height: 10, color: Color.fromRGBO(
-                                        242, 210, 255, 1.0),),
-                                    SizedBox(width: 5,),
-                                    Text('Submitted', style: TextStyle(fontSize: 13),),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Container(width: 10, height: 10, color: Color.fromRGBO(
-                                        220, 173, 131, 1.0),),
-                                    SizedBox(width: 5,),
-                                    Text('Returned', style: TextStyle(fontSize: 13),),
-                                  ],
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      )
-                      //---saved/approved/submitted/return indicators, code ends
-
-
-                    ],
+                          ),
+                          Expanded(
+                            child: Container(
+                              height: 50,
+                              decoration: BoxDecoration(border: Border(top: BorderSide(width: 1, color: Colors.black54))),
+                              child: MaterialButton( onPressed: (){},child: Text('Return', style: TextStyle(fontSize: 15, color: Colors.black54),)),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                   ),
+                  //---submit/approve/return btn, code ends
 
                 ]
             ),
