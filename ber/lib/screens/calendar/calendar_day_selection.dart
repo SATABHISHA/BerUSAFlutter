@@ -157,45 +157,105 @@ class _CalendarDaySelectionState extends State<CalendarDaySelection> {
                       ),
                       // Text('(01/14/2023 - 01/20/2023)', style: TextStyle(fontSize: 16, color: Color.fromRGBO(17, 17, 17, 1.0), fontWeight: FontWeight.normal),),
                       SizedBox(height: 20,),
-                      Container(
-                        width: double.infinity,
-                        // height: MediaQuery.of(context).size.height,
-                        // height: 200,
-                        decoration: BoxDecoration(color: Color.fromRGBO(
-                            215, 215, 215, 1.0)),
-                        child: Padding(
-                          padding: EdgeInsets.fromLTRB(15, 8, 15, 20),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('${CalendarHome.calendar_home_day_selection_list['StartDate']} - ${CalendarHome.calendar_home_day_selection_list['EndDate']}', style: TextStyle(fontSize: 16, color: Color.fromRGBO(17, 17, 17, 1.0), fontWeight: FontWeight.normal)),
-                              SizedBox(height: 20,),
-                              Container(
-                                color: Color.fromRGBO(117, 185, 223, 1.0),
-                                child: Padding(
-                                  padding: EdgeInsets.fromLTRB(8, 10, 5, 10),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                                    children: [
-                                      Text('Week Date', style: TextStyle(fontSize: 15, color: Colors.white),),
-                                      Text('${CalendarHome.calendar_home_day_selection_list['WeekDate']}', style: TextStyle(fontSize: 18, color: Colors.white),)
-                                    ],
+                      Expanded(
+                        child: Container(
+                          width: double.infinity,
+                          // height: MediaQuery.of(context).size.height,
+                          // height: 200,
+                          decoration: BoxDecoration(color: Color.fromRGBO(
+                              215, 215, 215, 1.0)),
+                          child: Padding(
+                            padding: EdgeInsets.fromLTRB(15, 8, 15, 20),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('${CalendarHome.calendar_home_day_selection_list['StartDate']} - ${CalendarHome.calendar_home_day_selection_list['EndDate']}', style: TextStyle(fontSize: 16, color: Color.fromRGBO(17, 17, 17, 1.0), fontWeight: FontWeight.normal)),
+                                SizedBox(height: 20,),
+                                Container(
+                                  color: Color.fromRGBO(117, 185, 223, 1.0),
+                                  child: Padding(
+                                    padding: EdgeInsets.fromLTRB(8, 10, 5, 10),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                                      children: [
+                                        Text('Week Date', style: TextStyle(fontSize: 15, color: Colors.white),),
+                                        Text('${CalendarHome.calendar_home_day_selection_list['WeekDate']}', style: TextStyle(fontSize: 18, color: Colors.white),)
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                              ListView(
-                                scrollDirection: Axis.vertical,
-                                shrinkWrap: true,
-                               /* children: [
-                                  new CalendarDaySelectionListTile(weekDay: '11-26-2023', weekDayName: 'Monday', onPressedEditBtn: () {}),
-                                ],*/
-                                children: customWeekDayList,
-                              )
-                            ],
+                                Expanded(
+                                  child: ListView(
+                                    scrollDirection: Axis.vertical,
+                                    shrinkWrap: true,
+                                   /* children: [
+                                      new CalendarDaySelectionListTile(weekDay: '11-26-2023', weekDayName: 'Monday', onPressedEditBtn: () {}),
+                                    ],*/
+                                    children: customWeekDayList,
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
-                      )
+                      ),
 
+                      //---saved/approved/submitted/return indicators, code starts
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                        child: Row(
+                          // crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Column(
+                              // mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Container(width: 10, height: 10, color: Color.fromRGBO(246, 236, 193, 1.0),),
+                                    SizedBox(width: 5,),
+                                    Text('Saved', style: TextStyle(fontSize: 13),),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Container(width: 10, height: 10, color: Color.fromRGBO(
+                                        194, 218, 231, 1.0),),
+                                    SizedBox(width: 5,),
+                                    Text('Approved', style: TextStyle(fontSize: 13),),
+                                  ],
+                                ),
+
+                              ],
+                            ),
+                            SizedBox(width: 45,),
+                            Column(
+                              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Container(width: 10, height: 10, color: Color.fromRGBO(
+                                        242, 210, 255, 1.0),),
+                                    SizedBox(width: 5,),
+                                    Text('Submitted', style: TextStyle(fontSize: 13),),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Container(width: 10, height: 10, color: Color.fromRGBO(
+                                        220, 173, 131, 1.0),),
+                                    SizedBox(width: 5,),
+                                    Text('Returned', style: TextStyle(fontSize: 13),),
+                                  ],
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      )
+                      //---saved/approved/submitted/return indicators, code ends
 
 
                     ],
