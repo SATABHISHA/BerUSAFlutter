@@ -129,11 +129,14 @@ class _CalendarDaySelectionState extends State<CalendarDaySelection> {
               color: Color.fromRGBO(255, 255, 255, 1.0)
           ),
           child: SafeArea(
-            child: Stack(
-                children: [
-
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 40),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Flexible(
+                  fit: FlexFit.loose,
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
                     child: Column(
                       children: [
                         Container(
@@ -191,9 +194,9 @@ class _CalendarDaySelectionState extends State<CalendarDaySelection> {
                                     child: ListView(
                                       scrollDirection: Axis.vertical,
                                       shrinkWrap: true,
-                                     /* children: [
-                                        new CalendarDaySelectionListTile(weekDay: '11-26-2023', weekDayName: 'Monday', onPressedEditBtn: () {}),
-                                      ],*/
+                                      /* children: [
+                                    new CalendarDaySelectionListTile(weekDay: '11-26-2023', weekDayName: 'Monday', onPressedEditBtn: () {}),
+                                  ],*/
                                       children: customWeekDayList,
                                     ),
                                   )
@@ -263,42 +266,42 @@ class _CalendarDaySelectionState extends State<CalendarDaySelection> {
                       ],
                     ),
                   ),
+                ),
 
 
-                  //---submit/approve/return btn, code starts
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Expanded(
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Container(
-                              height: 50,
-                              decoration: BoxDecoration(border: Border(top: BorderSide(width: 1, color: Colors.black54), right: BorderSide(width: 1, color: Colors.black54))),
-                              child: MaterialButton( onPressed: (){},child: Text('Submit', style: TextStyle(fontSize: 15, color: Colors.black54),)),
-                            ),
+                //---submit/approve/return btn, code starts
+                Padding(
+                  padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  child: Expanded(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            height: 50,
+                            decoration: BoxDecoration(border: Border(top: BorderSide(width: 1, color: Colors.black54), right: BorderSide(width: 1, color: Colors.black54))),
+                            child: MaterialButton( onPressed: (){},child: Text('Submit', style: TextStyle(fontSize: 15, color: Colors.black54),)),
                           ),
-                          Expanded(
-                            child: Container(
-                              height: 50,
-                              decoration: BoxDecoration(border: Border(top: BorderSide(width: 1, color: Colors.black54), right: BorderSide(width: 1, color: Colors.black54))),
-                              child: MaterialButton( onPressed: (){},child: Text('Approve', style: TextStyle(fontSize: 15, color: Colors.black54),)),
-                            ),
+                        ),
+                        Expanded(
+                          child: Container(
+                            height: 50,
+                            decoration: BoxDecoration(border: Border(top: BorderSide(width: 1, color: Colors.black54), right: BorderSide(width: 1, color: Colors.black54))),
+                            child: MaterialButton( onPressed: (){},child: Text('Approve', style: TextStyle(fontSize: 15, color: Colors.black54),)),
                           ),
-                          Expanded(
-                            child: Container(
-                              height: 50,
-                              decoration: BoxDecoration(border: Border(top: BorderSide(width: 1, color: Colors.black54))),
-                              child: MaterialButton( onPressed: (){},child: Text('Return', style: TextStyle(fontSize: 15, color: Colors.black54),)),
-                            ),
-                          )
-                        ],
-                      ),
+                        ),
+                        Expanded(
+                          child: Container(
+                            height: 50,
+                            decoration: BoxDecoration(border: Border(top: BorderSide(width: 1, color: Colors.black54))),
+                            child: MaterialButton( onPressed: (){},child: Text('Return', style: TextStyle(fontSize: 15, color: Colors.black54),)),
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                  //---submit/approve/return btn, code ends
-
-                ]
+                ),
+                //---submit/approve/return btn, code ends
+              ],
             ),
           ),
         ),
