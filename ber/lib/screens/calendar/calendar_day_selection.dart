@@ -1,6 +1,7 @@
 import 'package:ber/screens/calendar/calendar_day_selection_list_tile.dart';
 import 'package:ber/screens/calendar/calendar_home.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 class CalendarDaySelection extends StatefulWidget {
@@ -81,8 +82,11 @@ class _CalendarDaySelectionState extends State<CalendarDaySelection> {
       },
       child: Scaffold(
         // backgroundColor: Color.fromRGBO(2, 72, 254, 1.0),
-        // appBar: AppBar(backgroundColor: Colors.amber,),
-
+        appBar: AppBar(
+          backgroundColor: Color.fromRGBO(117, 185, 223, 1.0),
+          automaticallyImplyLeading: true, //---for back button
+          title: Text('Select Day', style: TextStyle(color: Colors.white),),
+        ),
         /*appBar: AppBar(
           // backgroundColor: Color.fromRGBO(71, 71, 71, 1.0),
           backgroundColor: Color.fromRGBO(2, 72, 254, 1.0),
@@ -140,7 +144,7 @@ class _CalendarDaySelectionState extends State<CalendarDaySelection> {
                     padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
                     child: Column(
                       children: [
-                        Container(
+                        /*Container(
                           width: double.infinity,
                           // height: 60,
                           color: Color.fromRGBO(117, 185, 223, 1.0),
@@ -156,7 +160,7 @@ class _CalendarDaySelectionState extends State<CalendarDaySelection> {
                               ],
                             ),
                           ),
-                        ),
+                        ),*/ //---commented on 1st-Dec-2023
                         SizedBox(height: 20,),
                         Padding(
                           padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
