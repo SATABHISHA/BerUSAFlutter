@@ -77,7 +77,7 @@ class _CalendarDaySelectionState extends State<CalendarDaySelection> {
 
     return WillPopScope(
       onWillPop: () async {
-        return false;
+        return true;
       },
       child: Scaffold(
         // backgroundColor: Color.fromRGBO(2, 72, 254, 1.0),
@@ -131,12 +131,13 @@ class _CalendarDaySelectionState extends State<CalendarDaySelection> {
           child: SafeArea(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              // crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisSize: MainAxisSize.min,
               children: [
                 Flexible(
                   fit: FlexFit.loose,
                   child: Padding(
-                    padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                    padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
                     child: Column(
                       children: [
                         Container(
@@ -270,35 +271,30 @@ class _CalendarDaySelectionState extends State<CalendarDaySelection> {
 
 
                 //---submit/approve/return btn, code starts
-                Padding(
-                  padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                  child: Expanded(
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Container(
-                            height: 50,
-                            decoration: BoxDecoration(border: Border(top: BorderSide(width: 1, color: Colors.black54), right: BorderSide(width: 1, color: Colors.black54))),
-                            child: MaterialButton( onPressed: (){},child: Text('Submit', style: TextStyle(fontSize: 15, color: Colors.black54),)),
-                          ),
-                        ),
-                        Expanded(
-                          child: Container(
-                            height: 50,
-                            decoration: BoxDecoration(border: Border(top: BorderSide(width: 1, color: Colors.black54), right: BorderSide(width: 1, color: Colors.black54))),
-                            child: MaterialButton( onPressed: (){},child: Text('Approve', style: TextStyle(fontSize: 15, color: Colors.black54),)),
-                          ),
-                        ),
-                        Expanded(
-                          child: Container(
-                            height: 50,
-                            decoration: BoxDecoration(border: Border(top: BorderSide(width: 1, color: Colors.black54))),
-                            child: MaterialButton( onPressed: (){},child: Text('Return', style: TextStyle(fontSize: 15, color: Colors.black54),)),
-                          ),
-                        )
-                      ],
+                Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(border: Border(top: BorderSide(width: 1, color: Colors.black54), right: BorderSide(width: 1, color: Colors.black54))),
+                        child: MaterialButton( onPressed: (){},child: Text('Submit', style: TextStyle(fontSize: 15, color: Colors.black54),)),
+                      ),
                     ),
-                  ),
+                    Expanded(
+                      child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(border: Border(top: BorderSide(width: 1, color: Colors.black54), right: BorderSide(width: 1, color: Colors.black54))),
+                        child: MaterialButton( onPressed: (){},child: Text('Approve', style: TextStyle(fontSize: 15, color: Colors.black54),)),
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(border: Border(top: BorderSide(width: 1, color: Colors.black54))),
+                        child: MaterialButton( onPressed: (){},child: Text('Return', style: TextStyle(fontSize: 15, color: Colors.black54),)),
+                      ),
+                    )
+                  ],
                 ),
                 //---submit/approve/return btn, code ends
               ],
