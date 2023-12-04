@@ -1,5 +1,6 @@
 import 'package:ber/screens/calendar/calendar_day_selection_list_tile.dart';
 import 'package:ber/screens/calendar/calendar_home.dart';
+import 'package:ber/screens/calendar/expense/expense_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -70,7 +71,10 @@ class _CalendarDaySelectionState extends State<CalendarDaySelection> {
     List<Widget> customWeekDayList = [];
     for(var weekdaysJsonList in weekDaysJsonList){
       try{
-        customWeekDayList.add(new CalendarDaySelectionListTile(weekDay: weekdaysJsonList['weekDayDate'], weekDayName: weekdaysJsonList['weekDayName'], onPressedEditBtn: (){}));
+        customWeekDayList.add(new CalendarDaySelectionListTile(weekDay: weekdaysJsonList['weekDayDate'], weekDayName: weekdaysJsonList['weekDayName'],
+            onPressedEditBtn: (){
+          Navigator.pushNamed(context, ExpenseForm.id);
+            }));
       }catch(e){
 
       }
