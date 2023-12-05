@@ -23,13 +23,41 @@ class _ExpenseFormState extends State<ExpenseForm> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Color.fromRGBO(117, 185, 223, 1.0),
-          automaticallyImplyLeading: true,
+          automaticallyImplyLeading: false,
           centerTitle: false,
           actions: [
             Builder(
                 builder: (context) {
                   return Container(
-
+                    // color: Colors.red,
+                    width: MediaQuery.of(context).size.width,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Image.asset('images/arrowleft.png',width: 40, height: 40, ),
+                            Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('Enter Trip Info', style: TextStyle(fontSize: 18, color: Colors.white),),
+                              Text('(12-02-2023 - 12-08-2023)', style: TextStyle(fontSize: 13, color: Colors.white),),
+                            ],
+                                                  ),
+                          ],
+                        ),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+                          child: Row(
+                            children: [
+                              Image.asset('images/arrowleft.png',width: 40, height: 40, ),
+                              Image.asset('images/arrowright.png',width: 40, height: 40, ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   );
                 }
 
