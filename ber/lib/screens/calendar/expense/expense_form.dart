@@ -1,5 +1,6 @@
 
 
+import 'package:ber/screens/calendar/calendar_day_selection.dart';
 import 'package:ber/widgets/reusable_common_widgets/reusable_constants.dart';
 import 'package:ber/widgets/reusable_common_widgets/reusable_dropdown_formfield.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,11 @@ class _ExpenseFormState extends State<ExpenseForm> {
                       children: [
                         Row(
                           children: [
-                            Image.asset('images/arrowleft.png',width: 40, height: 40, ),
+                            InkWell(
+
+                              child: Image.asset('images/arrowleft.png',width: 40, height: 40,),
+                              onTap: (){Navigator.pushNamed(context, CalendarDaySelection.id);},
+                            ),
                             Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
