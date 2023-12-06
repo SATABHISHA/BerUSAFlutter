@@ -1,6 +1,7 @@
 
 
 import 'package:ber/screens/calendar/calendar_day_selection.dart';
+import 'package:ber/screens/calendar/expense/expense_type_entry.dart';
 import 'package:ber/widgets/reusable_common_widgets/reusable_constants.dart';
 import 'package:ber/widgets/reusable_common_widgets/reusable_dropdown_formfield.dart';
 import 'package:flutter/material.dart';
@@ -244,7 +245,7 @@ class _ExpenseFormState extends State<ExpenseForm> {
                         child: Container(
                           height: 50,
                           decoration: BoxDecoration(border: Border(top: BorderSide(width: 1, color: Colors.black54), right: BorderSide(width: 1, color: Colors.black54))),
-                          child: MaterialButton( onPressed: (){},child: Text('Enter/Update\nExpense', style: TextStyle(fontSize: 15, color: Color.fromRGBO(38, 38, 38, 1.0)), textAlign: TextAlign.center,)),
+                          child: MaterialButton( onPressed: (){Navigator.pushNamed(context, ExpenseTypeEntry.id);},child: Text('Enter/Update\nExpense', style: TextStyle(fontSize: 15, color: Color.fromRGBO(38, 38, 38, 1.0)), textAlign: TextAlign.center,)),
                         ),
                       ),
                       Expanded(
