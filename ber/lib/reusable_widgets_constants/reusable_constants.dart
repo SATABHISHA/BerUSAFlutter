@@ -25,13 +25,13 @@ const kTextFieldDecoration = InputDecoration(
 
 const kTextFieldDecorationExpense = InputDecoration(
     hintText: '',
-    hintStyle: TextStyle(color: Colors.grey, fontFamily: 'Gilroy'),
+    hintStyle: TextStyle(color: Colors.grey, fontFamily: 'Gilroy',),
     filled: true,
     isDense: true,
     fillColor: Colors.white,
     // contentPadding: const EdgeInsets.fromLTRB(-10, 20, 10, 0),
     // contentPadding: const EdgeInsetsDirectional.only(start: -50.0),
-    contentPadding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
+    contentPadding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 5.0),
     border: OutlineInputBorder(
       borderRadius: BorderRadius.all(Radius.circular(2)),
       borderSide: BorderSide(color: Colors.transparent, width: 1.0),
