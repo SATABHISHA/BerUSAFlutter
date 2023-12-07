@@ -101,6 +101,7 @@ class _ExpenseTypeEntryState extends State<ExpenseTypeEntry> {
                           ),
                         ),
                       ),
+
                       Visibility(
                           visible: isContainerOpen,
                           child: Form(
