@@ -1,6 +1,7 @@
 import 'package:ber/screens/calendar/calendar_day_selection.dart';
 import 'package:ber/screens/calendar/calendar_home.dart';
 import 'package:ber/screens/calendar/expense/expense_form.dart';
+import 'package:ber/screens/calendar/expense/expense_summary.dart';
 import 'package:ber/screens/calendar/expense/expense_type_entry.dart';
 import 'package:ber/screens/login/user_login.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
           CalendarDaySelection.id : (context) => CalendarDaySelection(),
           ExpenseForm.id : (context) => ExpenseForm(),
           ExpenseTypeEntry.id : (context) => ExpenseTypeEntry(),
+          ExpenseSummary.id : (context) => ExpenseSummary(),
         },
       ),
     );
