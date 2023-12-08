@@ -2,6 +2,7 @@
 
 import 'package:ber/reusable_widgets_constants/reusable_constants.dart';
 import 'package:ber/screens/calendar/expense/expense_form.dart';
+import 'package:ber/screens/calendar/expense/expense_summary.dart';
 import 'package:flutter/material.dart';
 
 class ExpenseTypeEntry extends StatefulWidget {
@@ -687,7 +688,7 @@ class _ExpenseTypeEntryState extends State<ExpenseTypeEntry> {
                         child: Container(
                           height: 50,
                           decoration: BoxDecoration(border: Border(top: BorderSide(width: 1, color: Colors.black54))),
-                          child: MaterialButton( onPressed: (){},child: Text('View Expense Summary', style: TextStyle(fontSize: 15, color: Color.fromRGBO(
+                          child: MaterialButton( onPressed: (){Navigator.pushNamed(context, ExpenseSummary.id);},child: Text('View Expense Summary', style: TextStyle(fontSize: 15, color: Color.fromRGBO(
                               38, 38, 38, 1.0),),textAlign: TextAlign.center,)),
                         ),
                       )
