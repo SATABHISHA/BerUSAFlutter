@@ -15,8 +15,10 @@ class ExpenseTypeEntry extends StatefulWidget {
 class _ExpenseTypeEntryState extends State<ExpenseTypeEntry> {
   bool isContainerOpen = false;
   bool isPerdiemContainerOpen = false;
+  bool isOtherExpenseContainerOpen = false;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<FormState> _formKeyPerdiem = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKeyOthers = GlobalKey<FormState>();
   final TextEditingController _personalAutoRateMileController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -492,6 +494,181 @@ class _ExpenseTypeEntryState extends State<ExpenseTypeEntry> {
                           )
                       ),
                       //---Expense Type: Perdiem, code ends
+
+                      //---Expense Type: Other, code starts
+                      SizedBox(height: 20,),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        color: Color.fromRGBO(117, 185, 223, 1.0),
+                        // color: Colors.red,
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              RichText(text: TextSpan(
+                                  style: DefaultTextStyle.of(context).style,
+                                  children: [
+                                    TextSpan(text: 'Expense type:', style: TextStyle(fontSize:15, color: Colors.white, decoration: TextDecoration.none),),
+                                    TextSpan(text: ' Others', style: TextStyle(fontSize: 15, color: Color.fromRGBO(
+                                        138, 109, 76, 1.0), decoration: TextDecoration.none)),
+                                  ]
+                              )),
+                              InkWell(
+                                  onTap : (){
+                                    setState(() {
+                                      isOtherExpenseContainerOpen = !isOtherExpenseContainerOpen;
+                                    });
+
+                                  },
+                                  child: Image.asset('images/downarrow.png', width: 40, height: 40,)),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Visibility(
+                          visible: isOtherExpenseContainerOpen,
+                          child: Form(
+                            key: _formKeyOthers,
+                            child: AnimatedContainer(
+                              duration: Duration(seconds: 5),
+                              curve: Curves.easeInOut,
+                              width: MediaQuery.of(context).size.width,
+                              // color: Colors.red,
+                              decoration: BoxDecoration(
+                                  border: Border(right: BorderSide(width: 1, color: Color.fromRGBO(68, 68, 68, 1.0)), left: BorderSide(width: 1, color: Color.fromRGBO(68, 68, 68, 1.0)), bottom: BorderSide(width: 1, color: Color.fromRGBO(68, 68, 68, 1.0))),
+                                  borderRadius: BorderRadius.circular(5.0)
+                              ),
+                              child: Column(
+                                // crossAxisAlignment: CrossAxisAlignment.start,
+                                // mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  //--header title/ cost details, code starts
+                                  Row(
+                                    // crossAxisAlignment: CrossAxisAlignment.end,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                        child: Column(
+                                          // mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            SizedBox(height: 22,),
+                                            Container(
+                                              // height: 25,
+                                              // color: Colors.blue,
+                                                child: Padding(
+                                                  padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                                                  child: Text('Tolls/Parking', style: TextStyle(fontSize: 15, color: Colors.black),),
+                                                )),
+                                            SizedBox(height: 10,),
+                                            Container(
+                                              // height: 25,
+                                              // color: Colors.blue,
+                                                child: Padding(
+                                                  padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                                                  child: Text('Taxi/Transit', style: TextStyle(fontSize: 15, color: Colors.black),),
+                                                )),
+                                            SizedBox(height: 10,),
+                                            Container(
+                                              // height: 25,
+                                              // color: Colors.blue,
+                                                child: Padding(
+                                                  padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                                                  child: Text('Copy Service', style: TextStyle(fontSize: 15, color: Colors.black),),
+                                                )),
+                                            SizedBox(height: 10,),
+
+                                          ],
+                                        ),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        children: [
+
+                                          SizedBox(width: 10,),
+                                          // SizedBox(width: 10,),
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.end,
+                                            children: [
+                                              SizedBox(height: 5,),
+                                              Text('Expense Amt', style: TextStyle(fontSize: 14, color: Color.fromRGBO(
+                                                  26, 26, 26, 1.0)),),
+                                              SizedBox(height: 5,),
+                                              //---Tolls/Parking, textfield code starts
+                                              Container(
+                                                width: 100,
+                                                height: 40,
+                                                child: TextField(
+                                                  cursorHeight: 15,
+                                                    textAlign: TextAlign.center,
+                                                    // Setting maxLines to null allows for unlimited lines
+                                                    decoration: kTextFieldDecorationExpense.copyWith(hintText: '0.0',),
+                                                ),
+                                              ),
+                                              //---Tolls/Parking, textfield code ends
+
+                                              //---Taxi/Transit, textfield code starts
+                                              Container(
+                                                width: 100,
+                                                height: 40,
+                                                child: TextField(
+                                                    cursorHeight: 15,
+                                                    textAlign: TextAlign.center,
+                                                    // Setting maxLines to null allows for unlimited lines
+                                                    decoration: kTextFieldDecorationExpense.copyWith(hintText: '0.0')
+                                                ),
+                                              ),
+                                              //---Taxi/Transit, textfield code ends
+
+                                              //---Copy Service, textfield code starts
+                                              Container(
+                                                width: 100,
+                                                height: 40,
+                                                child: TextField(
+                                                    cursorHeight: 15,
+                                                    textAlign: TextAlign.center,
+                                                    // Setting maxLines to null allows for unlimited lines
+                                                    decoration: kTextFieldDecorationExpense.copyWith(hintText: '0.0')
+                                                ),
+                                              ),
+                                              //---Copy Service, textfield code ends
+                                            ],
+                                          ),
+                                          SizedBox(width: 10,),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  //--header title/ cost details, code ends
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text('Total', style: TextStyle(fontSize: 18, color: Colors.black),),
+                                      SizedBox(width: 10,),
+                                      // ---Total Fare, textfield code starts
+                                      Container(
+                                        width: 100,
+                                        height: 40,
+                                        child: TextField(
+                                            cursorHeight: 15,
+                                            textAlign: TextAlign.start,
+                                            // Setting maxLines to null allows for unlimited lines
+                                            decoration: kTextFieldDecorationExpense.copyWith(hintText: '0.0')
+                                        ),
+                                      ),
+                                      //---Total Fare, textfield code ends
+                                      SizedBox(width: 10,),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          )
+                      ),
+                      //---Expense Type: Other, code ends
 
                     ],
                   ),

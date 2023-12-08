@@ -25,7 +25,7 @@ const kTextFieldDecoration = InputDecoration(
 
 const kTextFieldDecorationExpense = InputDecoration(
     hintText: '',
-    hintStyle: TextStyle(color: Colors.grey, fontFamily: 'Gilroy',),
+    hintStyle: TextStyle(color: Colors.grey, fontFamily: 'Gilroy'),
     filled: true,
     isDense: true,
     fillColor: Colors.white,
