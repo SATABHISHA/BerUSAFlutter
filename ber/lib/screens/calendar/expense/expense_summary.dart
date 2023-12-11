@@ -313,8 +313,12 @@ class _ExpenseSummaryState extends State<ExpenseSummary> {
                         child: Container(
                           height: 50,
                           decoration: BoxDecoration(border: Border(top: BorderSide(width: 1, color: Colors.black54))),
-                          child: MaterialButton( onPressed: (){},child: Text('Save', style: TextStyle(fontSize: 15, color: Color.fromRGBO(
-                              38, 38, 38, 1.0),),textAlign: TextAlign.center,)),
+                          child: MaterialButton(
+                              onPressed: (){
+
+                              },
+                              child: Text('Save', style: TextStyle(fontSize: 15, color: Color.fromRGBO(
+                                  38, 38, 38, 1.0),),textAlign: TextAlign.center,)),
                         ),
                       )
 
