@@ -15,7 +15,6 @@ class CalendarDaySelection extends StatefulWidget {
 
 class _CalendarDaySelectionState extends State<CalendarDaySelection> {
   List<Map<String, dynamic>> weekDaysJsonList = [];
-
   List<Map<String, dynamic>> getDateRangeWithWeekdays(String startDateString, String endDateString)
   {
 
