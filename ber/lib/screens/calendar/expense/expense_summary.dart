@@ -1,4 +1,5 @@
 import 'package:ber/reusable_widgets_constants/reusable_constants.dart';
+import 'package:ber/reusable_widgets_constants/reusable_custom_dialog_with_yes_no_popup.dart';
 import 'package:ber/screens/calendar/expense/expense_type_entry.dart';
 import 'package:flutter/material.dart';
 
@@ -315,7 +316,15 @@ class _ExpenseSummaryState extends State<ExpenseSummary> {
                           decoration: BoxDecoration(border: Border(top: BorderSide(width: 1, color: Colors.black54))),
                           child: MaterialButton(
                               onPressed: (){
-
+                                showDialog(context: context, builder: (context) {
+                                  return ReusablePopUpWithYesNoCustomDialog(
+                                    alertTitle: 'Message',
+                                    colorMessageBody: Colors.black,
+                                    messageBody: 'Expanse Saved Successfully.\nEnter expense for next day?',
+                                    onPressedNo: (){Navigator.pop(context);},
+                                    onPressedYes: (){Navigator.pop(context);},
+                                  );
+                                },);
                               },
                               child: Text('Save', style: TextStyle(fontSize: 15, color: Color.fromRGBO(
                                   38, 38, 38, 1.0),),textAlign: TextAlign.center,)),
