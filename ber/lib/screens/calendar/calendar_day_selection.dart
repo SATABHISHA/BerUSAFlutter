@@ -14,6 +14,7 @@ class CalendarDaySelection extends StatefulWidget {
 }
 
 class _CalendarDaySelectionState extends State<CalendarDaySelection> {
+
   List<Map<String, dynamic>> weekDaysJsonList = [];
   List<Map<String, dynamic>> getDateRangeWithWeekdays(String startDateString, String endDateString)
   {
@@ -73,6 +74,7 @@ class _CalendarDaySelectionState extends State<CalendarDaySelection> {
         customWeekDayList.add(new CalendarDaySelectionListTile(weekDay: weekdaysJsonList['weekDayDate'], weekDayName: weekdaysJsonList['weekDayName'],
             onPressedEditBtn: (){
           Navigator.pushNamed(context, ExpenseForm.id);
+          print('test Date Data-=>${weekdaysJsonList['weekDayDate']}');
             }));
       }catch(e){
 
