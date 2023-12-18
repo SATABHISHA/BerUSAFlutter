@@ -8,6 +8,8 @@ import 'package:intl/intl.dart';
 class CalendarDaySelection extends StatefulWidget {
   // const CalendarDaySelection({Key? key}) : super(key: key);
   static String id = 'CalendarDaySelection';
+  static List<Map<String, dynamic>> CalendarDaySelectionWeekDaysJsonList = [];
+  static late String CalendarDaySelectionSelectedDate;
 
   @override
   State<CalendarDaySelection> createState() => _CalendarDaySelectionState();
@@ -37,6 +39,7 @@ class _CalendarDaySelectionState extends State<CalendarDaySelection> {
         "weekDayName" : formattedWeekDayName
       };
       weekDaysJsonList.add(combinedWeekDaysList);
+      CalendarDaySelection.CalendarDaySelectionWeekDaysJsonList.add(combinedWeekDaysList);
       dateRangeWithWeekdays.add(formattedDate);
       startDate = startDate.add(Duration(days: 1));
     }
@@ -49,6 +52,9 @@ class _CalendarDaySelectionState extends State<CalendarDaySelection> {
     // TODO: implement initState
     super.initState();
     print('StartDateTest-=>${CalendarHome.calendar_home_day_selection_list['StartDate']}');
+    if(CalendarDaySelection.CalendarDaySelectionWeekDaysJsonList.isNotEmpty){
+      CalendarDaySelection.CalendarDaySelectionWeekDaysJsonList.clear();
+    }
     // List<String> dateRange = getDateRange(CalendarHome.calendar_home_day_selection_list['StartDate'].toString(), CalendarHome.calendar_home_day_selection_list['EndDate'].toString());
     // List<DateTime> dateRange = getDateRange('11-26-2023', '11-30-2023');
     List<Map<String, dynamic>> dateRangeWithWeekdays = getDateRangeWithWeekdays(CalendarHome.calendar_home_day_selection_list['StartDate'], CalendarHome.calendar_home_day_selection_list['EndDate']);
@@ -75,6 +81,7 @@ class _CalendarDaySelectionState extends State<CalendarDaySelection> {
         customWeekDayList.add(new CalendarDaySelectionListTile(weekDay: weekdaysJsonList['weekDayDate'], weekDayName: weekdaysJsonList['weekDayName'],
             onPressedEditBtn: (){
           Navigator.pushNamed(context, ExpenseForm.id);
+          CalendarDaySelection.CalendarDaySelectionSelectedDate = weekdaysJsonList['weekDayDate'];
           print('test Date Data-=>${weekdaysJsonList['weekDayDate']}');
             }));
       }catch(e){

@@ -48,7 +48,8 @@ class _ExpenseFormState extends State<ExpenseForm> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text('Enter Trip Info', style: TextStyle(fontSize: 18, color: Colors.white),),
-                              Text('(12-02-2023 - 12-08-2023)', style: TextStyle(fontSize: 13, color: Colors.white),),
+                              // Text('(12-02-2023 - 12-08-2023)', style: TextStyle(fontSize: 13, color: Colors.white),),
+                              Text('${CalendarDaySelection.CalendarDaySelectionSelectedDate}', style: TextStyle(fontSize: 13, color: Colors.white),),
                             ],
                                                   ),
                           ],
