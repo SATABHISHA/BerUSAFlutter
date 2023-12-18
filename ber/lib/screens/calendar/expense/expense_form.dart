@@ -58,8 +58,18 @@ class _ExpenseFormState extends State<ExpenseForm> {
                           padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
                           child: Row(
                             children: [
-                              Image.asset('images/arrowleft.png',width: 40, height: 40, ),
-                              Image.asset('images/arrowright.png',width: 40, height: 40, ),
+                              InkWell(
+                                  onTap: (){
+
+                                  },
+                                  child: Image.asset('images/arrowleft.png',width: 40, height: 40, )
+                              ),
+                              InkWell(
+                                  child: Image.asset('images/arrowright.png',width: 40, height: 40, ),
+                                  onTap: (){
+
+                                  },
+                              ),
                             ],
                           ),
                         )
