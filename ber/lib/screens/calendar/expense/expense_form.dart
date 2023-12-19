@@ -67,7 +67,10 @@ class _ExpenseFormState extends State<ExpenseForm> {
                               InkWell(
                                   child: Image.asset('images/arrowright.png',width: 40, height: 40, ),
                                   onTap: (){
+                                    if(CalendarDaySelection.CalendarDaySelectionWeekDaysJsonList.any((weekdate) => weekdate['weekDayDate'] == CalendarDaySelection.CalendarDaySelectionSelectedDate) == true){
+                                      print('Eureka-=> ${CalendarDaySelection.CalendarDaySelectionSelectedDate}');
 
+                                    }
                                   },
                               ),
                             ],
