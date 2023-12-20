@@ -16,6 +16,34 @@ class ExpenseForm extends StatefulWidget {
 
 class _ExpenseFormState extends State<ExpenseForm> {
   GlobalKey<FormFieldState> _locationFromDropDown = new GlobalKey<FormFieldState>();
+
+
+  void updateSelectedDate(int daysToAdd) {
+    setState(() {
+      int currentIndex = CalendarDaySelection.CalendarDaySelectionWeekDaysJsonList
+          .indexWhere(
+              (weekdate) => weekdate['weekDayDate'] == CalendarDaySelection.CalendarDaySelectionSelectedDate);
+
+      if (currentIndex != -1) {
+        // int newIndex = (currentIndex + daysToAdd) % CalendarDaySelection.CalendarDaySelectionWeekDaysJsonList.length;
+        int newIndex = currentIndex + daysToAdd;
+        /*if (newIndex < 0) {
+          newIndex += CalendarDaySelection.CalendarDaySelectionWeekDaysJsonList.length;
+        }*/
+        if (newIndex >= 0 && newIndex < CalendarDaySelection.CalendarDaySelectionWeekDaysJsonList.length) {
+          CalendarDaySelection.CalendarDaySelectionSelectedDate =
+          CalendarDaySelection.CalendarDaySelectionWeekDaysJsonList[newIndex]['weekDayDate'];
+          // Add your logic to handle the selected date update
+          print("Selected Date: ${CalendarDaySelection.CalendarDaySelectionSelectedDate}");
+        }
+        /*CalendarDaySelection.CalendarDaySelectionSelectedDate =
+        CalendarDaySelection.CalendarDaySelectionWeekDaysJsonList[newIndex]['weekDayDate'];
+        // Add your logic to handle the selected date update
+        print("Selected Date: ${CalendarDaySelection.CalendarDaySelectionSelectedDate}");*/
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -60,17 +88,19 @@ class _ExpenseFormState extends State<ExpenseForm> {
                             children: [
                               InkWell(
                                   onTap: (){
-
+                                    updateSelectedDate(-1);
                                   },
                                   child: Image.asset('images/arrowleft.png',width: 40, height: 40, )
                               ),
                               InkWell(
                                   child: Image.asset('images/arrowright.png',width: 40, height: 40, ),
                                   onTap: (){
-                                    if(CalendarDaySelection.CalendarDaySelectionWeekDaysJsonList.any((weekdate) => weekdate['weekDayDate'] == CalendarDaySelection.CalendarDaySelectionSelectedDate) == true){
+                                    /*if(CalendarDaySelection.CalendarDaySelectionWeekDaysJsonList.any((weekdate) => weekdate['weekDayDate'] == CalendarDaySelection.CalendarDaySelectionSelectedDate) == true){
                                       print('Eureka-=> ${CalendarDaySelection.CalendarDaySelectionSelectedDate}');
 
-                                    }
+
+                                    }*/
+                                    updateSelectedDate(1);
                                   },
                               ),
                             ],
