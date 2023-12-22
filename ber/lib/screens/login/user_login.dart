@@ -195,6 +195,7 @@ class _UserLoginState extends State<UserLogin> {
                                 ),
                                 //---CorpID textField, code ends
 
+
                                 SizedBox(height: 20,),
 
                                 // ---UserId textField, code starts
