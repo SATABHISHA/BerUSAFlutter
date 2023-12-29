@@ -262,7 +262,6 @@ class _CalendarHomeState extends State<CalendarHome> {
                     print('test dates-=>$formattedDateString');
 
                     //---added on 27th Nov 2023, code starts
-
                     if(weekDaysJsonList.any((weekDate) => weekDate["WeekDate"] == formattedDateString) == true){
                       color = Colors.orange;
                       textColor = Colors.white;
