@@ -140,6 +140,7 @@ class _ExpenseFormState extends State<ExpenseForm> {
                               dropDownCustomDecoration: dropDownCustomDecoration,
                               onChanged: (value){},
                               onSaved: (value){},
+
                               /*list: locationList
                                   .where((e) => e != null) //removes null items
                                   .toSet()
