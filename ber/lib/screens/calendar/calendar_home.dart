@@ -61,6 +61,7 @@ class CalendarHome extends StatefulWidget {
 
 class _CalendarHomeState extends State<CalendarHome> {
   CalendarModel calendarModel = CalendarModel();
+  late DateTime _currentYear;
   Map<DateTime, List<dynamic>> events = {};
   List<dynamic> weekDaysList = [];
   List<Map<String, dynamic>> weekDaysJsonList = []; //---added on 27th Nov 2023
@@ -175,12 +176,18 @@ class _CalendarHomeState extends State<CalendarHome> {
   @override
   void initState(){
     super.initState();
+    _currentYear = DateTime.now();
     setState(() {
       fetchData();
     });
   }
 
-
+  void _onPageChanged(DateTime focusedDay) {
+    setState(() {
+      _currentYear = focusedDay;
+      print('year-=>${_currentYear}');
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -202,6 +209,7 @@ class _CalendarHomeState extends State<CalendarHome> {
             firstDay: DateTime.utc(2024, 1, 1), // Replace with your desired start date
             lastDay: DateTime.utc(2024, 12, 31), // Replace with your desired end date
             focusedDay: DateTime.now(), // This is the missing focusedDay parameter,
+              onPageChanged: _onPageChanged,
             // Configure your calendar options here
             onDaySelected: (selectedDay, focusedDay) {
               // Fetch data for the selected month
