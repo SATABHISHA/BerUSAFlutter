@@ -42,7 +42,7 @@ class CalendarHome extends StatefulWidget {
 class _CalendarHomeState extends State<CalendarHome> {
   CalendarModel calendarModel = CalendarModel();
   late DateTime _currentYear;
-  int yearLast = 0, monthLast = 12;
+  int yearLast = 0, monthLast = 12, yearFirst = 0;
   int monthLastTemp = 0;
   Map<DateTime, List<dynamic>> events = {};
   List<dynamic> weekDaysList = [];
@@ -53,12 +53,12 @@ class _CalendarHomeState extends State<CalendarHome> {
 
   Future<void> fetchData({required var year}) async {
 
-    if(weekDaysList.isEmpty){
+    /*if(weekDaysList.isEmpty){
       weekDaysList.clear();
     }
     if(weekDaysJsonList.isNotEmpty){
       weekDaysJsonList.clear();
-    }
+    }*/
     var data = {
       "CorpID" : 'hit',
       "UserID" : '7',
@@ -160,6 +160,12 @@ class _CalendarHomeState extends State<CalendarHome> {
     super.initState();
     _currentYear = DateTime.now();
     setState(() {
+      if(weekDaysList.isEmpty){
+        weekDaysList.clear();
+      }
+      if(weekDaysJsonList.isNotEmpty){
+        weekDaysJsonList.clear();
+      }
       fetchData(year: DateTime.now().year.toString());
     });
   }
@@ -193,9 +199,10 @@ class _CalendarHomeState extends State<CalendarHome> {
               TableCalendar(
             locale: "en_US",
             rowHeight: 43,
-
+            availableGestures: AvailableGestures.all,
             headerStyle: HeaderStyle(formatButtonVisible: false, titleCentered: true),
-            firstDay: DateTime.utc(2023, 1, 1), // Replace with your desired start date
+            // firstDay: DateTime.utc(2023, 1, 1), // Replace with your desired start date
+            firstDay: DateTime.utc(DateTime.now().year - yearFirst, 1, 1), // Replace with your desired start date
             // lastDay: DateTime.utc(2024, 12, 31), // Replace with your desired end date
             lastDay: DateTime.utc(DateTime.now().year + yearLast, monthLast, 31), // Replace with your desired end date
             focusedDay: DateTime.now(), // This is the missing focusedDay parameter,
@@ -217,6 +224,10 @@ class _CalendarHomeState extends State<CalendarHome> {
                     monthLastTemp = 1;
                     fetchData(year: focusedDay.year.toString());
 
+                  }
+                  if(focusedDay.month == 1){
+                    yearFirst = yearFirst - 1;
+                    // fetchData(year: focusedDay.year.toString());
                   }
                   // yearLast = yearLast + 1;
                   print('year-=>${_currentYear}');
