@@ -19,27 +19,7 @@ class CalendarDataProvider with ChangeNotifier {
 
   Map<DateTime, List<dynamic>> events = {};
 
-  Future<void> fetchData() async {
-    // Fetch data from your API based on the start and end dates
-    // Update the 'events' map with the fetched data
-    // Notify listeners to update the UI
-    // This is a simplified example; you should handle errors and parsing appropriately
-
-    // Example API request
-   /* final response = await http.get('$apiUrl?start=$start&end=$end');
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-      // Assume data is a List of events, each having a 'date' property
-      for (var event in data) {
-        DateTime date = DateTime.parse(event['date']);
-        events[date] = events[date] ?? [];
-        events[date]?.add(event);
-      }
-      notifyListeners();
-    } else {
-      throw Exception('Failed to load data');
-    }*/
-
+  /*Future<void> fetchData() async {
     var data = {
       "CorpID" : 'hit',
       "UserID" : '7',
@@ -47,7 +27,7 @@ class CalendarDataProvider with ChangeNotifier {
     };
     var calendarDetails = await calendarModel.getWeekDateListYearwiseOnPost(data: data);
     print('responsaData-=>${calendarDetails}');
-  }
+  }*/
 }
 
 class CalendarHome extends StatefulWidget {
@@ -62,6 +42,8 @@ class CalendarHome extends StatefulWidget {
 class _CalendarHomeState extends State<CalendarHome> {
   CalendarModel calendarModel = CalendarModel();
   late DateTime _currentYear;
+  int yearLast = 0, monthLast = 12;
+  int monthLastTemp = 0;
   Map<DateTime, List<dynamic>> events = {};
   List<dynamic> weekDaysList = [];
   List<Map<String, dynamic>> weekDaysJsonList = []; //---added on 27th Nov 2023
@@ -69,7 +51,7 @@ class _CalendarHomeState extends State<CalendarHome> {
   // CalendarController _calendarController;
 
 
-  Future<void> fetchData() async {
+  Future<void> fetchData({required var year}) async {
 
     if(weekDaysList.isEmpty){
       weekDaysList.clear();
@@ -80,7 +62,7 @@ class _CalendarHomeState extends State<CalendarHome> {
     var data = {
       "CorpID" : 'hit',
       "UserID" : '7',
-      "Year" : '2024',
+      "Year" : year.toString(),
     };
     var calendarDetails = await calendarModel.getWeekDateListYearwiseOnPost(data: data);
     // print('responsaData-=>${calendarDetails}');
@@ -178,13 +160,20 @@ class _CalendarHomeState extends State<CalendarHome> {
     super.initState();
     _currentYear = DateTime.now();
     setState(() {
-      fetchData();
+      fetchData(year: DateTime.now().year.toString());
     });
   }
 
   void _onPageChanged(DateTime focusedDay) {
     setState(() {
       _currentYear = focusedDay;
+      int monthLastTemp = 1;
+      monthLastTemp = monthLastTemp + 1;
+      if(monthLastTemp == 12){
+        yearLast = yearLast + 1;
+        monthLastTemp = 1;
+      }
+      // yearLast = yearLast + 1;
       print('year-=>${_currentYear}');
     });
   }
@@ -206,10 +195,33 @@ class _CalendarHomeState extends State<CalendarHome> {
             rowHeight: 43,
 
             headerStyle: HeaderStyle(formatButtonVisible: false, titleCentered: true),
-            firstDay: DateTime.utc(2024, 1, 1), // Replace with your desired start date
-            lastDay: DateTime.utc(2024, 12, 31), // Replace with your desired end date
+            firstDay: DateTime.utc(2023, 1, 1), // Replace with your desired start date
+            // lastDay: DateTime.utc(2024, 12, 31), // Replace with your desired end date
+            lastDay: DateTime.utc(DateTime.now().year + yearLast, monthLast, 31), // Replace with your desired end date
             focusedDay: DateTime.now(), // This is the missing focusedDay parameter,
-              onPageChanged: _onPageChanged,
+              // onPageChanged: _onPageChanged,
+                onPageChanged: (focusedDay) {
+                  _currentYear = focusedDay;
+
+                  print('msc-=>${focusedDay.year}');
+
+                  monthLastTemp = monthLastTemp + 1;
+                  print('currenMonth-=>$monthLastTemp');
+                  if(focusedDay.month == 12){
+                    print('Eureka12');
+                    yearLast = yearLast + 1;
+                    /*setState(() {
+
+                    });*/
+
+                    monthLastTemp = 1;
+                    fetchData(year: focusedDay.year.toString());
+
+                  }
+                  // yearLast = yearLast + 1;
+                  print('year-=>${_currentYear}');
+
+                },
             // Configure your calendar options here
             onDaySelected: (selectedDay, focusedDay) {
               // Fetch data for the selected month
