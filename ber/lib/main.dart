@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
 
-      create: (context) => CalendarDataProvider(),
+      create: (context) => CalendarState(),
       child: MaterialApp(
         // title: 'Flutter Demo',
         theme: ThemeData(

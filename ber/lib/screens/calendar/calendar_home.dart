@@ -29,6 +29,16 @@ class CalendarDataProvider with ChangeNotifier {
     print('responsaData-=>${calendarDetails}');
   }*/
 }
+class CalendarState extends ChangeNotifier {
+  DateTime _selectedDay = DateTime.now();
+
+  DateTime get selectedDay => _selectedDay;
+
+  void setSelectedDay(DateTime day) {
+    _selectedDay = day;
+    notifyListeners();
+  }
+}
 
 class CalendarHome extends StatefulWidget {
   // const CalendarHome({Key? key}) : super(key: key);
@@ -42,7 +52,7 @@ class CalendarHome extends StatefulWidget {
 class _CalendarHomeState extends State<CalendarHome> {
   CalendarModel calendarModel = CalendarModel();
   late DateTime _currentYear;
-  int yearLast = 0, monthLast = 12, yearFirst = 0;
+  int yearLast = DateTime.now().year, monthLast = 12, yearFirst = DateTime.now().year;
   int monthLastTemp = 0;
   Map<DateTime, List<dynamic>> events = {};
   List<dynamic> weekDaysList = [];
@@ -159,15 +169,23 @@ class _CalendarHomeState extends State<CalendarHome> {
   void initState(){
     super.initState();
     _currentYear = DateTime.now();
-    setState(() {
-      if(weekDaysList.isEmpty){
+    Provider.of<CalendarState>(context, listen: false).setSelectedDay(DateTime.now());
+    if(weekDaysList.isEmpty){
+      weekDaysList.clear();
+    }
+    if(weekDaysJsonList.isNotEmpty){
+      weekDaysJsonList.clear();
+    }
+    fetchData(year: DateTime.now().year.toString());
+    /*setState(() {
+      *//*if(weekDaysList.isEmpty){
         weekDaysList.clear();
       }
       if(weekDaysJsonList.isNotEmpty){
         weekDaysJsonList.clear();
-      }
-      fetchData(year: DateTime.now().year.toString());
-    });
+      }*//*
+      // fetchData(year: DateTime.now().year.toString());
+    });*/
   }
 
   void _onPageChanged(DateTime focusedDay) {
@@ -181,6 +199,20 @@ class _CalendarHomeState extends State<CalendarHome> {
       }
       // yearLast = yearLast + 1;
       print('year-=>${_currentYear}');
+    });
+  }
+
+  void _updateCalendarState() {
+    setState(() {
+      // Perform any additional logic if needed
+      monthLastTemp = monthLastTemp + 1;
+      if (_currentYear.month == 12) {
+        yearLast = yearLast + 1;
+        monthLastTemp = 1;
+      }
+      if (_currentYear.month <= 1) {
+        yearFirst = yearFirst - 1;
+      }
     });
   }
   @override
@@ -202,42 +234,48 @@ class _CalendarHomeState extends State<CalendarHome> {
             availableGestures: AvailableGestures.all,
             headerStyle: HeaderStyle(formatButtonVisible: false, titleCentered: true),
             // firstDay: DateTime.utc(2023, 1, 1), // Replace with your desired start date
-            firstDay: DateTime.utc(DateTime.now().year - yearFirst, 1, 1), // Replace with your desired start date
+            firstDay: DateTime.utc(DateTime.now().year - yearFirst, monthLastTemp, 1), // Replace with your desired start date
             // lastDay: DateTime.utc(2024, 12, 31), // Replace with your desired end date
             lastDay: DateTime.utc(DateTime.now().year + yearLast, monthLast, 31), // Replace with your desired end date
-            focusedDay: DateTime.now(), // This is the missing focusedDay parameter,
+            // focusedDay: DateTime.now(), // This is the missing focusedDay parameter,
+            focusedDay: Provider.of<CalendarState>(context).selectedDay, // This is the missing focusedDay parameter,
+
               // onPageChanged: _onPageChanged,
                 onPageChanged: (focusedDay) {
-                  _currentYear = focusedDay;
 
-                  print('msc-=>${focusedDay.year}');
+              _currentYear = focusedDay;
 
-                  monthLastTemp = monthLastTemp + 1;
-                  print('currenMonth-=>$monthLastTemp');
-                  if(focusedDay.month == 12){
-                    print('Eureka12');
-                    yearLast = yearLast + 1;
-                    /*setState(() {
+              print('msc-=>${focusedDay.year}');
 
-                    });*/
+              /*setState(() {
 
-                    monthLastTemp = 1;
-                    fetchData(year: focusedDay.year.toString());
+                  });*/
+              monthLastTemp = monthLastTemp + 1;
+              print('currenMonth-=>$monthLastTemp');
+              if(focusedDay.month == 12){
+                print('Eureka12');
+                yearLast = yearLast + 1;
 
-                  }
-                  if(focusedDay.month == 1){
-                    yearFirst = yearFirst - 1;
-                    // fetchData(year: focusedDay.year.toString());
-                  }
-                  // yearLast = yearLast + 1;
-                  print('year-=>${_currentYear}');
+                print('new year-=>$yearLast');
+                monthLastTemp = 1;
+                fetchData(year: focusedDay.year.toString());
+
+              }
+              if(focusedDay.month == 1){
+                yearFirst = yearFirst - 1;
+                monthLastTemp = 1;
+                print('new year test-=>$yearFirst');
+                fetchData(year: yearFirst.toString());
+              }
+              // yearLast = yearLast + 1;
+              print('year-=>${_currentYear}');
 
                 },
             // Configure your calendar options here
             onDaySelected: (selectedDay, focusedDay) {
               // Fetch data for the selected month
-              DateTime start = DateTime(selectedDay.year, selectedDay.month - 2);
-              DateTime end = DateTime(selectedDay.year, selectedDay.month + 3);
+              /*DateTime start = DateTime(selectedDay.year, selectedDay.month - 2);
+              DateTime end = DateTime(selectedDay.year, selectedDay.month + 3);*/
               // calendarData.fetchData(start, end);
               // calendarData.fetchData();
               // print('Selected date: $date');
