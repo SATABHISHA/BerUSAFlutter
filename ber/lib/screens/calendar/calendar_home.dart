@@ -10,6 +10,7 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:provider/provider.dart';
 import 'package:xml/xml.dart' as xml;
 import 'package:intl/intl.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 
 class CalendarDataProvider with ChangeNotifier {
@@ -62,6 +63,7 @@ class _CalendarHomeState extends State<CalendarHome> {
 
 
   Future<void> fetchData({required var year}) async {
+    EasyLoading.show(status: 'Loading...');
 
     /*if(weekDaysList.isEmpty){
       weekDaysList.clear();
@@ -145,6 +147,7 @@ class _CalendarHomeState extends State<CalendarHome> {
         }*/
 
       }
+      EasyLoading.dismiss();
       print('WeekdaysPrevTest-=>$weekDaysList');
     }
     //---code taken from ChatGpt, code ends

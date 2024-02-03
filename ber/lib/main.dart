@@ -6,6 +6,7 @@ import 'package:ber/screens/calendar/expense/expense_type_entry.dart';
 import 'package:ber/screens/login/user_login.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
       create: (context) => CalendarState(),
       child: MaterialApp(
         // title: 'Flutter Demo',
+        builder: EasyLoading.init(),
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
